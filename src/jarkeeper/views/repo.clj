@@ -4,7 +4,10 @@
             [hiccup.page :refer [html5 include-css include-js]]))
 
 
-(defn index [repo]
+(defn index [project]
   (html5 {:lang "uk"}
     [:body
-      "Hello"]))
+      [:header
+       [:strong (:name project)]
+       [:span (:version project)]
+       [:p (:description project)]]]))
