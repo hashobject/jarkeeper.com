@@ -1,4 +1,4 @@
-(ns jarkeeper.views.repo
+(ns jarkeeper.views.project
   (:require [clojure.string :as string]
             [hiccup.core :refer [html]]
             [hiccup.page :refer [html5 include-css include-js]]))

@@ -9,7 +9,7 @@
             [clojure.tools.logging :as log]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [jarkeeper.views.repo :as repo-view])
+            [jarkeeper.views.project :as project-view])
   (:import (java.io PushbackReader)))
 
 
@@ -29,7 +29,7 @@
                    :version (nth project-def 2)
                    :github-url github-url
                    :description (nth project-def 4)}]
-       (repo-view/index project))))
+       (project-view/index project))))
 
 
 (def app
