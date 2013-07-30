@@ -10,9 +10,12 @@
                  [ring/ring-core "1.2.0"]
                  [ring-server "0.2.8"]
                  [org.clojure/tools.logging "0.2.6"]
-                 [ring/ring-jetty-adapter "1.2.0"]]
+                 [ring/ring-jetty-adapter "1.2.0"]
+                 [ancient-clj "0.1.2"]]
   :ring {:handler jarkeeper.core/app }
   :plugins [[lein-ring "0.8.6"]]
   :profiles {
     :dev {
-      :dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.2.0"]]}})
+      :dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.2.0"]]}
+    :prod {
+      :ring {:open-browser? false, :stacktraces? false, :auto-reload? false}}})
