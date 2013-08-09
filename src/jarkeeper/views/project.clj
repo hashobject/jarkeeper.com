@@ -5,7 +5,7 @@
 
 
 (defn index [project]
-  (html5 {:lang "uk"}
+  (html5 {:lang "en"}
     [:body
       [:header
        [:strong (:name project)]

@@ -23,7 +23,7 @@
   (GET "/" []
        "Welcome to jarkeeper!")
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
-    (let [github-url (str "https://github.url/" repo-owner "/" repo-name)
+    (let [github-url (str "https://github.com/" repo-owner "/" repo-name)
           project-def (read-project-clj repo-owner repo-name)
           project {:name (second project-def)
                    :version (nth project-def 2)
