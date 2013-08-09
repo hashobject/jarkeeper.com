@@ -29,6 +29,7 @@
                    :version (nth project-def 2)
                    :github-url github-url
                    :description (nth project-def 4)}]
+       (log/info "project-def" project-def)
        (project-view/index project))))
 
 
