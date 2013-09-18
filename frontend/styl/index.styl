@@ -18,7 +18,25 @@ section.summary
     & li
       list-style: none;
       display: inline-block;
+    & span
+      vertical-align: middle;
+
+span.number
+  margin-left: 10px;
+  margin-right: 10px;
+
+span.status
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border-radius: 2px;
+  &.up-to-date
+    background-color: green;
+  &.out-of-date
+    background-color: red;
 
 table
-  & .th
+  & th
     text-transform: uppercase;
+  & td.status-column
+    text-align: center;

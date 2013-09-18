@@ -42,6 +42,7 @@
         stats (calculate-stats deps)
         result (assoc info-map
                  :name project-name
+                 :owner repo-owner
                  :version version
                  :github-url github-url
                  :deps deps

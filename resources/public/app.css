@@ -404,4 +404,10 @@ table {
 header h2{font-size:1.3em}
 span.version{font-weight:normal;font-size:.4em;margin-left:20px}
 section.summary ul li{list-style:none;display:inline-block}
-table .th{text-transform:uppercase}
+section.summary ul span{vertical-align:middle}
+span.number{margin-left:10px;margin-right:10px}
+span.status{width:16px;height:16px;display:inline-block;border-radius:2px;}
+span.status.up-to-date{background-color:#008000}
+span.status.out-of-date{background-color:#f00}
+table th{text-transform:uppercase}
+table td.status-column{text-align:center}

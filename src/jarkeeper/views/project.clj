@@ -18,22 +18,49 @@
        [:h2 (:description project)]]
       [:section.summary.row
        [:ul
-        [:li.small-12.large-3.columns (:total (:stats project)) " dependencies"]
-        [:li.small-12.large-3.columns (:up-to-date (:stats project)) " up to date"]
-        [:li.small-12.large-3.columns (:out-of-date (:stats project)) " out of date"]
+        [:li.small-12.large-4.columns
+         [:span.number (:total (:stats project))]
+         [:span.stats-label "dependencies"]]
+        [:li.small-12.large-4.columns
+         [:span.status.up-to-date]
+         [:span.number (:up-to-date (:stats project))]
+         [:span.stats-label "up to date"]]
+        [:li.small-12.large-4.columns
+         [:span.status.out-of-date]
+         [:span.number (:out-of-date (:stats project))]
+         [:span.stats-label "out of date"]]
         ]]
       [:section.dependencies.row
         [:table.small-12.columns
           [:thead
            [:tr
-            [:th "Dependecy"]
+            [:th "Dependency"]
             [:th "Used"]
-            [:th "Latest"]]]
+            [:th "Latest"]
+            [:th {:width "90"} "Status"]
+            ]]
           (for [dep (:deps project)]
               [:tr
                [:td (first dep)]
                [:td (second dep)]
-               [:td (str (first (last dep)))]])]]
+               [:td (str (first (last dep)))]
+               [:td.status-column
+                 (if (nil? (last dep))
+                   [:span.status.up-to-date {:title "Up to date"}]
+                   [:span.status.out-of-date {:title "Out of date"}])]])]]
 
-      (common-views/common-footer)
+     [:section.installation-instructions.row
+      [:h1 "Markdown"]
+      [:code
+         (str "[![Dependencies Status]"
+              "(http://jarkeeper.com/"
+              (:owner project)
+              "/"
+              (:name project)
+              "/status.png)](http://jarkeeper.com/"
+              (:owner project)
+              "/"
+              (:name project)
+              ")")]]
+     (common-views/common-footer)
      ]))
