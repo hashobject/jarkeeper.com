@@ -629,13 +629,17 @@ article.post-content ul,article.docs-content ul,article.project-content ul,artic
 article.post-content blockquote,article.docs-content blockquote,article.project-content blockquote{border-left:5px solid #eb4d94;background-color:#e8eaeb;font-style:italic;font-size:16px;margin:15px 0;padding:15px 30px;}
 article.post-content blockquote p,article.docs-content blockquote p,article.project-content blockquote p{margin:0;padding:0;font-size:16px}
 section h2,header h2{font-size:1.1em}
+footer.footer{font-style:italic;text-align:center;margin-top:2em;margin-bottom:1.5em;}
+footer.footer p{margin-bottom:.8em}
 span.version{font-weight:normal;font-size:.8em;margin-left:20px}
+section.summary{margin-bottom:1em;}
 section.summary ul li{list-style:none;display:inline-block}
 section.summary ul span{vertical-align:middle}
-span.number{margin-left:10px;margin-right:5px}
+span.number{margin-left:10px;margin-right:5px;color:#1cb8e8}
 span.status{width:16px;height:16px;display:inline-block;border-radius:2px;}
-span.status.up-to-date{background-color:#008000}
-span.status.out-of-date{background-color:#f00}
+span.status.up-to-date{background-color:#99eb52}
+span.status.out-of-date{background-color:#eb4d94}
 table th{text-transform:uppercase}
 table td.status-column{text-align:center}
 table tbody{font-size:1.1em}
+button{background-color:#1cb8e8;color:#fff;text-transform:uppercase}

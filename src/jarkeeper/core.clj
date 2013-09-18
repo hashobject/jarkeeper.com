@@ -9,6 +9,7 @@
             [clojure.tools.logging :as log]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [jarkeeper.views.index :as index-view]
             [jarkeeper.views.project :as project-view]
             [ancient-clj.core :as anc])
   (:import (java.io PushbackReader)))
@@ -51,11 +52,16 @@
        result))
 
 
-
+(defn- repo-redirect [{:keys [params]}]
+  (log/info params)
+  (resp/redirect (str "/" (:repo-url params))))
 
 (defroutes app-routes
   (GET "/" []
-       "Welcome to jarkeeper!")
+       (index-view/index))
+
+  (GET "/find" [] repo-redirect)
+
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
     (let [project (project-map repo-owner repo-name)]
        (log/info "project-def" project)
@@ -63,8 +69,9 @@
 
 
 (def app
-  (->(handler/site app-routes)
+  (-> #'app-routes
      (wrap-resource "public")
-     (wrap-base-url)))
+     (wrap-base-url)
+     (handler/api)))
 
 (defn -main [port] (run-jetty app {:port (Integer. port)}))

@@ -166,12 +166,22 @@ header
 
 
 
+footer.footer
+  font-style: italic;
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+
+  & p
+    margin-bottom: 0.8em;
+
 span.version
   font-weight: normal;
   font-size: 0.8em;
   margin-left: 20px;
 
 section.summary
+  margin-bottom: 1em;
   & ul
     & li
       list-style: none;
@@ -182,6 +192,7 @@ section.summary
 span.number
   margin-left: 10px;
   margin-right: 5px;
+  color: $header-color;
 
 span.status
   width: 16px;
@@ -189,9 +200,9 @@ span.status
   display: inline-block;
   border-radius: 2px;
   &.up-to-date
-    background-color: green;
+    background-color: #99eb52;
   &.out-of-date
-    background-color: red;
+    background-color: #eb4d94;
 
 table
   & th
@@ -200,3 +211,9 @@ table
     text-align: center;
   & tbody
     font-size: 1.1em;
+
+
+button
+  background-color: #1cb8e8;
+  color: #fff;
+  text-transform: uppercase;

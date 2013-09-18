@@ -9,7 +9,8 @@
 (defn index [project]
   (html5 {:lang "en"}
     [:head
-     (common-views/common-head (:name project))
+     [:title (str "Jarkeeper: " (:name project))]
+     (common-views/common-head)
      (include-css "/app.css")]
     [:body
       [:article.project-content
@@ -76,7 +77,6 @@
                 "/"
                 (:name project)
                 "/status.png\"></a>"))]
-        ]
-       (common-views/common-footer)
-     ]
+        ]]
+     (common-views/common-footer)
     ]))
