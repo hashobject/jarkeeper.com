@@ -1,16 +1,174 @@
-@import "normalize.css"
+@import "normalize.min.css"
 @import "foundation.min.css"
+@import "font-awesome.css"
+@import "pygments.css"
 
 
+$text-color = black;
+$link-color = #eb4d94;
+$visited-link-color = #9e0047;
+$code-color = #99eb52;
+$code-background = #3a434a;
+$header-color = #1cb8e8;
+$quote-background = #e8eaeb;
+$main-grey = #e8eaeb;
+$additional-grey = #e1e5e8;
+
+
+
+body
+  font-size: 14px;
+  line-height: 1.4;
+  color: black;
+  font-family: 'PT Sans', Tahoma, sans-serif;
+  color: $text-color;
+
+div.logo
+  margin: 5px 0;
+  background-image: url('/images/hashobject-logo.png');
+  width: 246px;
+  height: 53px;
+
+
+body > header.row
+  height: 65px;
+  margin-bottom: 30px;
+  & > .content
+    width: 700px;
+    height: 100%;
+  & nav
+    position: absolute;
+    right: 0;
+    top: -5px;
+    height: 100%;
+    & ul
+      height: 100%;
+      & li
+        height: 100%;
+        display: inline-block;
+        text-transform: uppercase;
+        list-style-type: none;
+        margin: 0 10px;
+        padding-top: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+        &.active
+        &:hover
+          background-color: $header-color;
+          color: white;
+          & a
+          & a:visited
+            color: white!important;
+        & a
+        & a:visited
+          color: black!important;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 1.2;
+
+body > footer.row
+  & p.licence
+    font-style: italic;
+    color: $code-background;
+    margin: 35px 12px 20px;
+
+.row > .content
+  width: 600px;
+  margin: 0 auto;
+  position: relative;
+
+  & a
+    color: $link-color;
+    &:visited
+      color: $visited-link-color;
+
+article.post-content
+article.docs-content
+article.project-content
+  & h1
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+  & h2
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.2;
+    color: $header-color;
+  header
+
+    & h2
+      color: $text-color;
+      font-weight: normal;
+  & ul
+  & ol
+    list-style-position: inside;
+
+  & code
+  & pre[class="brush: clojure"]
+  & pre[class="brush: shell"]
+  & div.highlight
+    font-family: Courier, monospace;
+    font-weight: normal;
+    color: $code-color;
+    background-color: $code-background;
+    display: block;
+    margin: 15px;
+    padding: 10px 15px;
+
+    & .s
+      color: $link-color;
+
+    & .p
+    & .o
+    & .se
+      color: $additional-grey;
+    & .mi
+    & .mo
+    & .mf
+      color: $main-grey;
+
+  & p
+    margin-top: 0;
+    margin-bottom: 7px;
+
+  & p.discussion-link
+    margin-top: 20px;
+    font-style: italic;
+    color: $code-background;
+
+  & ul
+  & ol
+    color: $code-background;
+    margin-left: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+  & blockquote
+    border-left: 5px solid $link-color;
+    background-color: $quote-background;
+    font-style: italic;
+    font-size: 16px;
+    margin: 15px 0;
+    padding: 15px 30px;
+    & p
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+
+section
 header
-
  & h2
-   font-size: 1.3em;
+   font-size: 1.1em;
+
 
 
 span.version
   font-weight: normal;
-  font-size: 0.4em;
+  font-size: 0.8em;
   margin-left: 20px;
 
 section.summary
@@ -23,7 +181,7 @@ section.summary
 
 span.number
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 5px;
 
 span.status
   width: 16px;
@@ -40,3 +198,5 @@ table
     text-transform: uppercase;
   & td.status-column
     text-align: center;
+  & tbody
+    font-size: 1.1em;
