@@ -49,7 +49,8 @@
 
 
 (def app
-  (handler/site
-    app-routes))
+  (->(handler/site app-routes)
+     (wrap-resource "public")
+     (wrap-base-url)))
 
 (defn -main [port] (run-jetty app {:port (Integer. port)}))
