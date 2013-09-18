@@ -17,6 +17,8 @@
 (defn common-footer []
   [:footer.row
    [:div.small-12.columns
-    [:p "Jarkeeper brought to you by "
-      [:a {:href "http://hashobject.com/"} "Hashobject team"] "&mdash;2&nbsp;two people who love opensource."]
-    [:p.copyright "Hashobject, 2013"]]])
+    [:p "Brought to you by "
+      [:a {:href "http://hashobject.com/"} "Hashobject team"] "."]
+    [:p
+     [:a {:href "http://github.com/hashobject/jarkeeper.com"} "Jarkeeper"]
+     " is open source project hosted on GitHub."]]])
