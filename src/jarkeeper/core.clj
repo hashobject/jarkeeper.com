@@ -25,18 +25,31 @@
          (conj dep (anc/artifact-outdated? dep))
          ) deps))
 
+
+(defn calculate-stats [deps]
+  (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
+        out-of-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) nil dep)) deps))
+        stats {:total (count deps)
+               :up-to-date (count up-to-date-deps)
+               :out-of-date (count out-of-date-deps)}]
+    stats))
+
 (defn project-map [repo-owner repo-name]
   (let [github-url (str "https://github.com/" repo-owner "/" repo-name)
         [_ project-name version & info] (read-project-clj repo-owner repo-name)
         info-map (apply hash-map info)
         deps (check-deps (:dependencies info-map))
+        stats (calculate-stats deps)
         result (assoc info-map
                  :name project-name
                  :version version
                  :github-url github-url
-                 :deps deps)]
+                 :deps deps
+                 :stats stats)]
        (log/info result)
        result))
+
+
 
 
 (defroutes app-routes
