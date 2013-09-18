@@ -11,7 +11,6 @@
        [:strong (:name project)]
        [:span (:version project)]
        [:p (:description project)]]
-       [:p (first (:deps project))]
 (for [u (:deps project)]
     [:div (first u) (second u) (str (last u))]
 )

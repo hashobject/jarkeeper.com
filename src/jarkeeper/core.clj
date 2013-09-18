@@ -24,16 +24,12 @@
 
 
 (defn project-map [repo-owner repo-name]
-  (let [[_ project-name version & info] (read-project-clj repo-owner repo-name)]
-  (log/info info)
-    (apply hash-map info)))
-
-
-(defn project-deps [repo-owner repo-name]
-  (:dependencies (project-map repo-owner repo-name)))
-
-
-(project-deps "hashobject" "translate")
+  (let [github-url (str "https://github.com/" repo-owner "/" repo-name)
+        [_ project-name version & info] (read-project-clj repo-owner repo-name)
+        info-map (apply hash-map info)
+        result (assoc info-map :name project-name :version version :github-url github-url)]
+       (log/info result)
+       result))
 
 
 (defn check-deps [deps]
@@ -41,21 +37,14 @@
          (conj dep (anc/artifact-outdated? dep))
          ) deps))
 
-(check-deps (project-deps "hashobject" "translate"))
-
 
 (defroutes app-routes
   (GET "/" []
        "Welcome to jarkeeper!")
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
-    (let [github-url (str "https://github.com/" repo-owner "/" repo-name)
-          project-def (read-project-clj repo-owner repo-name)
-          deps (check-deps (project-deps repo-owner repo-name))
-          project {:name (second project-def)
-                   :version (nth project-def 2)
-                   :github-url github-url
-                   :description (nth project-def 4)
-                   :deps deps}]
+    (let [project-def (project-map repo-owner repo-name)
+          deps (check-deps (:dependencies project-def))
+          project (assoc project-def :deps deps)]
        (log/info "project-def" project)
        (project-view/index project))))
 
