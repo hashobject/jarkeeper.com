@@ -642,4 +642,5 @@ span.status.out-of-date{background-color:#eb4d94}
 table th{text-transform:uppercase}
 table td.status-column{text-align:center}
 table tbody{font-size:1.1em}
+form.find-form{text-align:center}
 button{background-color:#1cb8e8;color:#fff;text-transform:uppercase}

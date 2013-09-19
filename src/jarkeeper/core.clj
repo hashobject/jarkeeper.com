@@ -60,7 +60,7 @@
   (GET "/" []
        (index-view/index))
 
-  (GET "/find" [] repo-redirect)
+  (POST "/find" [] repo-redirect)
 
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
     (let [project (project-map repo-owner repo-name)]
