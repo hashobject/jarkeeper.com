@@ -57,25 +57,25 @@
         [:code
            (str "[![Dependencies Status]"
                 "(http://jarkeeper.com/"
-                (:owner project)
+                (:repo-owner project)
                 "/"
-                (:name project)
+                (:repo-name project)
                 "/status.png)](http://jarkeeper.com/"
-                (:owner project)
+                (:repo-owner project)
                 "/"
-                (:name project)
+                (:repo-name project)
                 ")")]
         [:h2 "HTML"]
         [:code
            (escape-html (str "<a href=\""
                 "http://jarkeeper.com/"
-                (:owner project)
+                (:repo-owner project)
                 "/"
-                (:name project)
+                (:repo-name project)
                 "\" title=\"Dependencies status\"><img src=\"http://jarkeeper.com/"
-                (:owner project)
+                (:repo-owner project)
                 "/"
-                (:name project)
+                (:repo-name project)
                 "/status.png\"></a>"))]
         ]]
      (common-views/common-footer)
