@@ -25,14 +25,15 @@ body
 
 div.logo
   margin: 5px 0;
-  background-image: url('/images/hashobject-logo.png');
-  width: 246px;
-  height: 53px;
+  background-image: url('/images/logo.png');
+  width: 180px;
+  height: 59px;
 
 
-body > header.row
+body > header.header
   height: 65px;
   margin-bottom: 30px;
+  text-align: center;
   & > .content
     width: 700px;
     height: 100%;
@@ -215,7 +216,13 @@ table
 form.find-form
   text-align: center;
 
+  & label
+    font-size: 1.1em;
+
 button
   background-color: #1cb8e8;
   color: #fff;
   text-transform: uppercase;
+
+#repo-url
+  padding: 18px 10px;

@@ -14,16 +14,15 @@
      (common-views/ga)
      (include-css "/app.css")]
     [:body
+      (common-views/header)
       [:article.project-content
        [:form.find-form {:method "POST" :action "find"}
         [:div.row
          [:div.small-3.columns
           [:label.right.inline {:for "repo-url"} "Repo name"]]
-         [:div.small-9.columns
-          [:input#repo-url {:type "text" :name "repo-url" :placeholder "e.x. hashobject/mandrill"}]]]
-        [:div.row
-         [:div.large-12.columns
-          [:button "Check!"]]]]
-      ]
+         [:div.small-7.columns
+          [:input#repo-url {:type "text" :name "repo-url" :placeholder "e.x. hashobject/mandrill" :autocomplete "false"}]]
+         [:div.small-2.columns
+           [:button "Check!"]]]]]
      (common-views/common-footer)
     ]))

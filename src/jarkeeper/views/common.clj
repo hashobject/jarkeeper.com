@@ -34,3 +34,9 @@
     ga('create', 'UA-44209834-1', 'jarkeeper.com');
     ga('send', 'pageview');
    "])
+
+
+(defn header []
+  [:header.header.row
+   [:div
+    [:a {:href "http://www.jarkeeper.com"}[:div.logo]]]])

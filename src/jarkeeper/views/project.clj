@@ -14,6 +14,7 @@
      (common-views/ga)
      (include-css "/app.css")]
     [:body
+      (common-views/header)
       [:article.project-content
         [:header.row
          [:h1
