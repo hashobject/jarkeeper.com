@@ -11,6 +11,7 @@
     [:head
      [:title (str "Jarkeeper: " (:name project))]
      (common-views/common-head)
+     (common-views/ga)
      (include-css "/app.css")]
     [:body
       [:article.project-content

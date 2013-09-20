@@ -9,8 +9,9 @@
 (defn index []
   (html5 {:lang "en"}
     [:head
-     [:title "Jarkeeper: identify out of date dependecies!" ]
+     [:title "Jarkeeper: identify out of date dependecies!"]
      (common-views/common-head)
+     (common-views/ga)
      (include-css "/app.css")]
     [:body
       [:article.project-content
