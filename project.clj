@@ -8,7 +8,7 @@
                  [compojure "1.1.5"]
                  [hiccup "1.0.4"]
                  [ring/ring-core "1.2.0"]
-                 [ring-server "0.2.8"]
+                 [ring-server "0.3.0"]
                  [org.clojure/tools.logging "0.2.6"]
                  [ring/ring-jetty-adapter "1.2.0"]
                  [ancient-clj "0.1.3"]]
