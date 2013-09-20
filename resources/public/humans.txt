@@ -45,6 +45,7 @@ _______________________________________________________________________________
 
 INSPIRATIONS
 
+https://github.com/xsc/ancient-clj
 https://github.com/rodnaph/clj-deps
 https://david-dm.org
 https://gemnasium.com/

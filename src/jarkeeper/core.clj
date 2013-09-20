@@ -23,7 +23,7 @@
 
 (defn check-deps [deps]
   (map (fn [dep]
-         (conj dep (anc/artifact-outdated? dep))
+         (conj dep (anc/artifact-outdated? {:snapshots? false} dep))
          ) deps))
 
 
@@ -65,7 +65,16 @@
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
     (let [project (project-map repo-owner repo-name)]
        (log/info "project-def" project)
-       (project-view/index project))))
+       (project-view/index project)))
+
+  (GET "/:repo-owner/:repo-name/status.png" [repo-owner repo-name]
+    (let [project (project-map repo-owner repo-name)
+          out-of-date-count (:out-of-date (:stats project))]
+       (if (> out-of-date-count 0)
+         (resp/file-response "resources/public/images/out-of-date.png")
+         (resp/file-response "resources/public/images/up-to-date.png"))))
+
+  )
 
 
 (def app
