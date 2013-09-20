@@ -1,5 +1,7 @@
 # jarkeeper.com
 
+[![Dependencies Status](http://jarkeeper.com/hashobject/jarkeeper.com/status.png)](http://jarkeeper.com/hashobject/jarkeeper.com)
+
 ## TODO
 
 
