@@ -1,0 +1,47 @@
+     _            _
+    (_) __ _ _ __| | _____  ___ _ __   ___ _ __
+    | |/ _` | '__| |/ / _ \/ _ \ '_ \ / _ \ '__|
+    | | (_| | |  |   <  __/  __/ |_) |  __/ |
+   _/ |\__,_|_|  |_|\_\___|\___| .__/ \___|_|
+  |__/                         |_|
+
+    The humans.txt file explains the team, technology, and graphic
+    assets behind this site.
+
+_______________________________________________________________________________
+
+PEOPLE
+
+This site was hand-crafted by the Hashobject team.
+http://hashobject.team
+
+Anton Podviaznikov
+Back-end implementation
+Contact: anton@hashobject.com
+Twitter: @podviaznikov
+
+Designer: Maryna Aleksandrova
+Design, page layout, markup, and CSS
+Contact: maryna@hashobject.com
+Twitter: @m_aleksandrova
+
+_______________________________________________________________________________
+
+TECHNOLOGY
+
+Clojure programming language
+http://clojure.org/
+
+Foundation
+http://foundation.zurb.com/
+
+Stylus
+http://learnboost.github.io/stylus/
+
+_______________________________________________________________________________
+
+INSPIRATIONS
+
+https://github.com/rodnaph/clj-deps
+https://david-dm.org
+https://gemnasium.com/
