@@ -15,7 +15,7 @@
      (include-css "/app.css")]
     [:body
       (common-views/header)
-      [:article.project-content
+      [:article.project-content.index-content
        [:h1 "Jarkeeper identifies outdated dependencies in your Clojure project."]
        [:form.find-form {:method "POST" :action "find"}
         [:div.row
