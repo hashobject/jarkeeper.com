@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     watch: {
       src: {
         files: ['styl/*.styl'],
-        tasks: ['deploy']
+        tasks: ['build']
       }
     }
 
