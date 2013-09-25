@@ -7,6 +7,7 @@
 
   * add support for webhooks. regenerate page after code was pushed.
   * add github auth. we can send notification to owner that deps were outdated.
+  * handle not found repo error
 
 
 ## Inspirations

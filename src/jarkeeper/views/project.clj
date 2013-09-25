@@ -20,7 +20,12 @@
          [:h1
            [:a {:href (:github-url project)} (:name project)]
            [:span.version (:version project)]]
-         [:h2 (:description project)]]
+         [:h2 (:description project)]
+         (if (> (:out-of-date (:stats project)) 0)
+           [:img {:src "/images/out-of-date.png"}]
+           [:img {:src "/images/up-to-date.png"}]
+           )
+           ]
         [:section.summary.row
          [:ul
           [:li.small-12.large-4.columns

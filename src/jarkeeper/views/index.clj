@@ -15,14 +15,14 @@
      (include-css "/app.css")]
     [:body
       (common-views/header)
-      [:article.project-content.index-content
+      [:article.index-content
        [:h1 "Jarkeeper identifies outdated dependencies in your Clojure project."]
        [:form.find-form {:method "POST" :action "find"}
         [:div.row
          [:div.small-3.columns
           [:label.right.inline {:for "repo-url"} "Repo name"]]
          [:div.small-6.columns
-          [:input#repo-url {:type "text" :name "repo-url" :placeholder "e.x. hashobject/mandrill" :autocomplete "false"}]]
+          [:input#repo-url {:type "text" :name "repo-url" :placeholder "e.x. korma/Korma" :autocomplete "false"}]]
          [:div.small-3.columns
            [:button "Check!"]]]]]
      (common-views/common-footer)
