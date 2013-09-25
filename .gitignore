@@ -13,3 +13,4 @@ pom.xml.asc
 
 .DS_Store
 frontend/node_modules/
+lein.bat
