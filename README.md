@@ -7,8 +7,14 @@
 
   * add support for webhooks. regenerate page after code was pushed.
   * add github auth. we can send notification to owner that deps were outdated.
-  * add humans.txt file and mention ancient-clj
 
+
+## Inspirations
+
+https://github.com/xsc/ancient-clj
+https://github.com/rodnaph/clj-deps
+https://david-dm.org
+https://gemnasium.com/
 
 ## License
 
