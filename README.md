@@ -18,6 +18,20 @@ https://github.com/rodnaph/clj-deps
 https://david-dm.org
 https://gemnasium.com/
 
+
+## Ideas
+
+  * amount of downloads last day, week, months
+  * new version publish dates
+  * commit activity/density
+  * number of contributors - basically we want to know if project is activel maintained
+  * we want to know how many projects use current one as dependency
+  * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
+
+
+
+
+
 ## License
 
 Copyright © 2013 Hashobject Ltd (team@hashobject.com).
