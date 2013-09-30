@@ -13,10 +13,10 @@
 
 ## Inspirations
 
-https://github.com/xsc/ancient-clj
-https://github.com/rodnaph/clj-deps
-https://david-dm.org
-https://gemnasium.com/
+  * https://github.com/xsc/ancient-clj
+  * https://github.com/rodnaph/clj-deps
+  * https://david-dm.org
+  * https://gemnasium.com/
 
 
 ## Ideas
@@ -27,8 +27,6 @@ https://gemnasium.com/
   * number of contributors - basically we want to know if project is activel maintained
   * we want to know how many projects use current one as dependency
   * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
-
-
 
 
 
