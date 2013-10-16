@@ -21,9 +21,9 @@
 
 ## Ideas
 
-  * amount of downloads last day, week, months
+  * amount of downloads last day, week, month
   * new version publish dates
-  * commit activity/density
+  * commits activity/density
   * number of contributors - basically we want to know if project is activel maintained
   * we want to know how many projects use current one as dependency
   * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
