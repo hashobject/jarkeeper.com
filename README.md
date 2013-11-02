@@ -27,7 +27,8 @@
   * number of contributors - basically we want to know if project is activel maintained
   * we want to know how many projects use current one as dependency
   * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
-
+  * receive some notification when new versions are available
+  * update some dedicated branch with new versions so they can be tested by continuous integration system for early feedback
 
 
 ## License
