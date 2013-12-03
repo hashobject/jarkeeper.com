@@ -23,7 +23,7 @@
 
 (defn check-deps [deps]
   (map (fn [dep]
-         (conj dep (anc/artifact-outdated? {:snapshots? false :qualified? true} dep))
+         (conj dep (anc/artifact-outdated? {:snapshots? false :qualified? false} dep))
          ) deps))
 
 
