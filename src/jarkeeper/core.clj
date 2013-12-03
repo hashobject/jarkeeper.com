@@ -52,7 +52,6 @@
        (log/info result)
        result))
 
-
 (defn- repo-redirect [{:keys [params]}]
   (log/info params)
   (resp/redirect (str "/" (:repo-url params))))
