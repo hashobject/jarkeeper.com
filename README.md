@@ -7,8 +7,7 @@
 
   * add support for webhooks. regenerate page after code was pushed.
   * add github auth. we can send notification to owner that deps were outdated.
-  * handle not found repo error
-  * add checks for alpa/beta versions, snapshots
+  * add checks for alpha/beta versions, snapshots
 
 
 ## Inspirations
@@ -24,7 +23,7 @@
   * amount of downloads last day, week, month
   * new version publish dates
   * commits activity/density
-  * number of contributors - basically we want to know if project is activel maintained
+  * number of contributors - basically we want to know if project is actively maintained
   * we want to know how many projects use current one as dependency
   * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
   * receive some notification when new versions are available

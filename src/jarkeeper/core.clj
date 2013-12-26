@@ -21,6 +21,7 @@
         (PushbackReader.
           (io/reader url)))))
 
+
 (defn check-deps [deps]
   (map (fn [dep]
          (conj dep (anc/artifact-outdated? {:snapshots? false :qualified? false} dep))
@@ -49,7 +50,7 @@
                  :github-url github-url
                  :deps deps
                  :stats stats)]
-       (log/info result)
+       (log/info "project map" result)
        result))
 
 (defn- repo-redirect [{:keys [params]}]
@@ -63,18 +64,21 @@
   (POST "/find" [] repo-redirect)
 
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
-    (let [project (project-map repo-owner repo-name)]
-       (log/info "project-def" project)
-       (project-view/index project)))
+    (try
+      (let [project (project-map repo-owner repo-name)]
+           (log/info "project-def" project)
+           (project-view/index project))
+      (catch Exception e
+        (resp/redirect "/"))))
 
   (GET "/:repo-owner/:repo-name/status.png" [repo-owner repo-name]
-    (let [project (project-map repo-owner repo-name)
-          out-of-date-count (:out-of-date (:stats project))]
-       (if (> out-of-date-count 0)
-         (resp/file-response "resources/public/images/out-of-date.png")
-         (resp/file-response "resources/public/images/up-to-date.png"))))
-
-  )
+    (try
+       (let [project (project-map repo-owner repo-name)
+            out-of-date-count (:out-of-date (:stats project))]
+         (if (> out-of-date-count 0)
+           (resp/file-response "resources/public/images/out-of-date.png")
+           (resp/file-response "resources/public/images/up-to-date.png")))
+      (catch Exception e {:status 404}))))
 
 
 (def app
