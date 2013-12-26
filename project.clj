@@ -1,5 +1,5 @@
-(defproject jarkeeper.com "0.1.0-SNAPSHOT"
-  :description "Identify out of date dependencies in your Clojure project."
+(defproject jarkeeper.com "0.2.0-SNAPSHOT"
+  :description "Identify outdated dependencies in your Clojure project."
   :url "http://jarkeeper.com"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}

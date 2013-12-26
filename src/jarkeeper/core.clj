@@ -15,6 +15,12 @@
   (:import (java.io PushbackReader)))
 
 
+
+(defn- starting-num? [string]
+  (number? (read-string (str (second (name string))))))
+
+
+
 (defn read-project-clj [repo-owner repo-name]
   (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
     (edn/read
@@ -28,6 +34,15 @@
          ) deps))
 
 
+(defn check-profiles [profiles]
+  (map (fn [profile-entry]
+         (let [profile (val profile-entry)
+               profile-name (key profile-entry)]
+               (if (not (starting-num? profile-name))
+                 (if-let [dependencies (:dependencies profile)]
+                   [profile-name (check-deps dependencies)]))))
+       profiles))
+
 (defn calculate-stats [deps]
   (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
         out-of-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) nil dep)) deps))
@@ -36,11 +51,15 @@
                :out-of-date (count out-of-date-deps)}]
     stats))
 
+
+
+
 (defn project-map [repo-owner repo-name]
   (let [github-url (str "https://github.com/" repo-owner "/" repo-name)
         [_ project-name version & info] (read-project-clj repo-owner repo-name)
         info-map (apply hash-map info)
         deps (check-deps (:dependencies info-map))
+        profiles (check-profiles (:profiles info-map))
         stats (calculate-stats deps)
         result (assoc info-map
                  :name project-name
@@ -49,10 +68,13 @@
                  :version version
                  :github-url github-url
                  :deps deps
+                 :profiles profiles
                  :stats stats)]
-       (log/info "project map" result)
+       (log/info "project map" result profiles)
        result))
 
+;(project-map "korma" "Korma")
+;(project-map "hashobject" "jarkeeper.com")
 (defn- repo-redirect [{:keys [params]}]
   (log/info params)
   (resp/redirect (str "/" (:repo-url params))))

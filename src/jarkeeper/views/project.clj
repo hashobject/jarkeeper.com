@@ -47,8 +47,7 @@
               [:th "Dependency"]
               [:th "Used"]
               [:th "Latest"]
-              [:th {:width "90"} "Status"]
-              ]]
+              [:th {:width "90"} "Status"]]]
             (for [dep (:deps project)]
                 [:tr
                  [:td (first dep)]
