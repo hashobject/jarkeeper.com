@@ -17,7 +17,9 @@
 
 
 (defn- starting-num? [string]
-  (number? (read-string (str (second (name string))))))
+  (number? (read-string (str (first (name string))))))
+
+
 
 
 
@@ -34,14 +36,6 @@
          ) deps))
 
 
-(defn check-profiles [profiles]
-  (map (fn [profile-entry]
-         (let [profile (val profile-entry)
-               profile-name (key profile-entry)]
-               (if (not (starting-num? profile-name))
-                 (if-let [dependencies (:dependencies profile)]
-                   [profile-name (check-deps dependencies)]))))
-       profiles))
 
 (defn calculate-stats [deps]
   (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
@@ -50,6 +44,17 @@
                :up-to-date (count up-to-date-deps)
                :out-of-date (count out-of-date-deps)}]
     stats))
+
+(defn check-profiles [profiles]
+  (map (fn [profile-entry]
+         (let [profile (val profile-entry)
+               profile-name (key profile-entry)]
+               (if (not (starting-num? profile-name))
+                 (if-let [dependencies (:dependencies profile)]
+                   [profile-name (check-deps dependencies) (calculate-stats dependencies)]))))
+       profiles))
+
+
 
 
 

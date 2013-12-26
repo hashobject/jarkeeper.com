@@ -6,6 +6,46 @@
             [hiccup.util :refer [escape-html]]))
 
 
+
+(defn- render-deps [deps]
+  (for [dep deps]
+    [:tr
+     [:td (first dep)]
+     [:td (second dep)]
+     [:td (str (first (last dep)))]
+     [:td.status-column
+       (if (nil? (last dep))
+         [:span.status.up-to-date {:title "Up to date"}]
+         [:span.status.out-of-date {:title "Out of date"}])]]))
+
+
+(defn- render-stats [stats]
+  [:section.summary.row
+   [:ul
+    [:li.small-12.large-4.columns
+     [:span.number (:total stats)]
+     [:span.stats-label "dependencies"]]
+    [:li.small-12.large-4.columns
+     [:span.status.up-to-date]
+     [:span.number (:up-to-date stats)]
+     [:span.stats-label "up to date"]]
+    [:li.small-12.large-4.columns
+     [:span.status.out-of-date]
+     [:span.number (:out-of-date stats)]
+     [:span.stats-label "out of date"]]]])
+
+(defn- render-profile [profile]
+  [:table.small-12.columns
+    [:thead
+     [:tr
+      [:th (name (first profile))]
+      [:th {:width "180"} ""]
+      [:th {:width "180"} ""]
+      [:th {:width "90"} ""]]]
+   (render-deps (second profile))])
+
+
+
 (defn index [project]
   (html5 {:lang "en"}
     [:head
@@ -23,40 +63,22 @@
          [:h2 (:description project)]
          (if (> (:out-of-date (:stats project)) 0)
            [:img {:src "/images/out-of-date.png"}]
-           [:img {:src "/images/up-to-date.png"}]
-           )
-           ]
-        [:section.summary.row
-         [:ul
-          [:li.small-12.large-4.columns
-           [:span.number (:total (:stats project))]
-           [:span.stats-label "dependencies"]]
-          [:li.small-12.large-4.columns
-           [:span.status.up-to-date]
-           [:span.number (:up-to-date (:stats project))]
-           [:span.stats-label "up to date"]]
-          [:li.small-12.large-4.columns
-           [:span.status.out-of-date]
-           [:span.number (:out-of-date (:stats project))]
-           [:span.stats-label "out of date"]]
-          ]]
+           [:img {:src "/images/up-to-date.png"}])]
+        (render-stats (:stats project))
         [:section.dependencies.row
           [:table.small-12.columns
             [:thead
              [:tr
               [:th "Dependency"]
-              [:th "Used"]
-              [:th "Latest"]
+              [:th {:width "180"} "Used"]
+              [:th {:width "180"} "Latest"]
               [:th {:width "90"} "Status"]]]
-            (for [dep (:deps project)]
-                [:tr
-                 [:td (first dep)]
-                 [:td (second dep)]
-                 [:td (str (first (last dep)))]
-                 [:td.status-column
-                   (if (nil? (last dep))
-                     [:span.status.up-to-date {:title "Up to date"}]
-                     [:span.status.out-of-date {:title "Out of date"}])]])]]
+            (render-deps (:deps project))]
+         (for [profile (:profiles project)]
+           (if (first profile)
+             (html
+               (render-stats (nth profile 2))
+               (render-profile profile))))]
 
        [:section.installation-instructions.row
         [:h2 "Markdown"]
