@@ -20,9 +20,6 @@
   (number? (read-string (str (first (name string))))))
 
 
-
-
-
 (defn read-project-clj [repo-owner repo-name]
   (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
     (edn/read
@@ -34,8 +31,6 @@
   (map (fn [dep]
          (conj dep (anc/artifact-outdated? {:snapshots? false :qualified? false} dep))
          ) deps))
-
-
 
 (defn calculate-stats [deps]
   (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
@@ -53,10 +48,6 @@
                  (if-let [dependencies (:dependencies profile)]
                    [profile-name (check-deps dependencies) (calculate-stats dependencies)]))))
        profiles))
-
-
-
-
 
 
 (defn project-map [repo-owner repo-name]
@@ -78,8 +69,6 @@
        (log/info "project map" result profiles)
        result))
 
-;(project-map "korma" "Korma")
-;(project-map "hashobject" "jarkeeper.com")
 (defn- repo-redirect [{:keys [params]}]
   (log/info params)
   (resp/redirect (str "/" (:repo-url params))))

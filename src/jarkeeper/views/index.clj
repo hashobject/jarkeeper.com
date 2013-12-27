@@ -25,5 +25,4 @@
           [:input#repo-url {:type "text" :name "repo-url" :placeholder "e.x. korma/Korma" :autocomplete "false"}]]
          [:div.small-3.columns
            [:button "Check!"]]]]]
-     (common-views/common-footer)
-    ]))
+     (common-views/common-footer)]))
