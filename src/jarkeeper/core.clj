@@ -22,9 +22,7 @@
 
 (defn read-project-clj [repo-owner repo-name]
   (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
-    (edn/read
-        (PushbackReader.
-          (io/reader url)))))
+    (edn/read (PushbackReader. (io/reader url)))))
 
 
 (defn check-deps [deps]
@@ -90,10 +88,10 @@
   (GET "/:repo-owner/:repo-name/status.png" [repo-owner repo-name]
     (try
        (let [project (project-map repo-owner repo-name)
-            out-of-date-count (:out-of-date (:stats project))]
-         (if (> out-of-date-count 0)
-           (resp/file-response "resources/public/images/out-of-date.png")
-           (resp/file-response "resources/public/images/up-to-date.png")))
+             out-of-date-count (:out-of-date (:stats project))]
+             (if (> out-of-date-count 0)
+               (resp/file-response "resources/public/images/out-of-date.png")
+               (resp/file-response "resources/public/images/up-to-date.png")))
       (catch Exception e {:status 404}))))
 
 
