@@ -44,7 +44,8 @@
                profile-name (key profile-entry)]
                (if (not (starting-num? profile-name))
                  (if-let [dependencies (:dependencies profile)]
-                   [profile-name (check-deps dependencies) (calculate-stats dependencies)]))))
+                   (if-let [deps (check-deps dependencies)]
+                     [profile-name deps (calculate-stats deps)])))))
        profiles))
 
 
