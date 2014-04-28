@@ -1,5 +1,5 @@
 (ns jarkeeper.core
-  (:require [compojure.core :refer [defroutes GET POST PUT DELETE]]
+  (:require [compojure.core :refer [defroutes GET POST PUT DELETE HEAD]]
             [ring.middleware.resource :refer [wrap-resource]]
             [hiccup.middleware :refer [wrap-base-url]]
             [ring.adapter.jetty :refer [run-jetty]]
@@ -14,6 +14,17 @@
             [ancient-clj.core :as anc])
   (:import (java.io PushbackReader)))
 
+
+(defn https-url [request-url]
+  (str (str (str (str "https://" (:server-name request-url) ":") "443")) (:uri request-url)))
+
+
+(defn require-https
+  [handler]
+  (fn [request]
+    (if (= (:scheme request) :http)
+      (ring.util.response/redirect (https-url request))
+      (handler request))))
 
 
 (defn- starting-num? [string]
@@ -76,6 +87,8 @@
   (GET "/" []
        (index-view/index))
 
+  (HEAD "/" [] "")
+
   (POST "/find" [] repo-redirect)
 
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
@@ -98,6 +111,7 @@
 
 (def app
   (-> #'app-routes
+     (require-https)
      (wrap-resource "public")
      (wrap-base-url)
      (handler/api)))

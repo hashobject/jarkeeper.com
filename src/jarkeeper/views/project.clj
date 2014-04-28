@@ -84,11 +84,11 @@
         [:h2 "Markdown"]
         [:code
            (str "[![Dependencies Status]"
-                "(http://jarkeeper.com/"
+                "(https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.png)](http://jarkeeper.com/"
+                "/status.png)](https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
@@ -100,7 +100,7 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "\" title=\"Dependencies status\"><img src=\"http://jarkeeper.com/"
+                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
