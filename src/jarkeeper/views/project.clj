@@ -96,7 +96,7 @@
         [:h2 "HTML"]
         [:code
            (escape-html (str "<a href=\""
-                "http://jarkeeper.com/"
+                "https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
