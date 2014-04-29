@@ -15,6 +15,10 @@
   (:import (java.io PushbackReader)))
 
 
+ (alter-var-root
+   #'clojure.tools.logging/*logger-factory*
+   (constantly (clojure.tools.logging.impl/jul-factory)))
+
 (defn https-url [request-url]
   (str (str (str (str "https://" (:server-name request-url) ":") "443")) (:uri request-url)))
 
@@ -83,9 +87,16 @@
   (log/info params)
   (resp/redirect (str "/" (:repo-url params))))
 
+
+(defn status-resp [filepath]
+  (log/info "serving status image" filepath)
+  (-> filepath
+    (resp/resource-response)
+    (resp/header "cache-control"
+            "public, max-age=300")))
+
 (defroutes app-routes
-  (GET "/" []
-       (index-view/index))
+  (GET "/" [] (index-view/index))
 
   (HEAD "/" [] "")
 
@@ -104,16 +115,19 @@
        (let [project (project-map repo-owner repo-name)
              out-of-date-count (:out-of-date (:stats project))]
              (if (> out-of-date-count 0)
-               (resp/file-response "resources/public/images/out-of-date.png")
-               (resp/file-response "resources/public/images/up-to-date.png")))
-      (catch Exception e {:status 404}))))
+               (resp/resource-response "public/images/out-of-date.png")
+               (resp/resource-response "public/images/up-to-date.png")
+         ))
+      (catch Exception e {:status 404})))
+
+  )
 
 
 (def app
   (-> #'app-routes
-     (require-https)
+     ;(require-https)
      (wrap-resource "public")
      (wrap-base-url)
-     (handler/api)))
+     (handler/site)))
 
 (defn -main [port] (run-jetty app {:port (Integer. port)}))
