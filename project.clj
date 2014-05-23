@@ -1,4 +1,4 @@
-(defproject jarkeeper "0.3.0-SNAPSHOT"
+(defproject jarkeeper "0.4.0-SNAPSHOT"
   :description "Identify outdated dependencies in your Clojure project."
   :url "http://jarkeeper.com"
   :license {:name "Eclipse Public License"

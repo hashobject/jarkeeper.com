@@ -84,11 +84,11 @@
         [:h2 "Markdown"]
         [:code
            (str "[![Dependencies Status]"
-                "(https://jarkeeper.com/"
+                "(http://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.png)](https://jarkeeper.com/"
+                "/status.png)](http://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
@@ -96,11 +96,11 @@
         [:h2 "HTML"]
         [:code
            (escape-html (str "<a href=\""
-                "https://jarkeeper.com/"
+                "http://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
+                "\" title=\"Dependencies status\"><img src=\"http://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)

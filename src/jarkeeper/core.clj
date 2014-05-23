@@ -19,16 +19,6 @@
    #'clojure.tools.logging/*logger-factory*
    (constantly (clojure.tools.logging.impl/jul-factory)))
 
-(defn https-url [request-url]
-  (str (str (str (str "https://" (:server-name request-url) ":") "443")) (:uri request-url)))
-
-
-(defn require-https
-  [handler]
-  (fn [request]
-    (if (= (:scheme request) :http)
-      (ring.util.response/redirect (https-url request))
-      (handler request))))
 
 
 (defn- starting-num? [string]
@@ -115,12 +105,12 @@
        (let [project (project-map repo-owner repo-name)
              out-of-date-count (:out-of-date (:stats project))]
              (if (> out-of-date-count 0)
-               (resp/resource-response "public/images/out-of-date.png")
-               (resp/resource-response "public/images/up-to-date.png")
-         ))
+               (status-resp "public/images/out-of-date.png")
+               (status-resp "public/images/up-to-date.png")))
       (catch Exception e {:status 404})))
 
-  )
+  (GET "/:any" []
+       (resp/redirect "/")))
 
 
 (def app
