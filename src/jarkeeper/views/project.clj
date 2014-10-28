@@ -64,11 +64,13 @@
          (if (> (:out-of-date (:stats project)) 0)
            [:img {:src "/images/out-of-date.png"}]
            [:img {:src "/images/up-to-date.png"}])]
-        (render-stats (:stats project))
         [:section.dependencies.row
+          (render-stats (:stats project))
           (render-table "Dependency" (:deps project))
-          (render-stats (:plugins-stats project))
-          (render-table "Plugin" (:plugins project))
+          (if (> (count (:plugins project)) 0)
+            (html
+              (render-stats (:plugins-stats project))
+              (render-table "Plugin" (:plugins project))))
          (for [profile (:profiles project)]
            (if (first profile)
              (html
