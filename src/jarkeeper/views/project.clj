@@ -67,7 +67,7 @@
         (render-stats (:stats project))
         [:section.dependencies.row
           (render-table "Dependency" (:deps project))
-;          (render-stats (:plugins project))
+          (render-stats (:plugins-stats project))
           (render-table "Plugin" (:plugins project))
          (for [profile (:profiles project)]
            (if (first profile)

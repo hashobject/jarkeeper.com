@@ -58,6 +58,7 @@
         plugins (check-deps (:plugins info-map))
         profiles (check-profiles (:profiles info-map))
         stats (calculate-stats deps)
+        plugins-stats (calculate-stats plugins)
         result (assoc info-map
                  :name project-name
                  :repo-name repo-name
@@ -67,7 +68,8 @@
                  :deps deps
                  :profiles profiles
                  :plugins plugins
-                 :stats stats)]
+                 :stats stats
+                 :plugins-stats plugins-stats)]
        (log/info "project map" result profiles)
        result))
 
