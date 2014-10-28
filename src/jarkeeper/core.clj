@@ -28,7 +28,7 @@
 
 (defn check-deps [deps]
   (map (fn [dep]
-         (conj dep (anc/artifact-outdated? dep))
+         (conj dep (anc/artifact-outdated? dep {:snapshots? false :qualified? false}))
          ) deps))
 
 (defn calculate-stats [deps]
