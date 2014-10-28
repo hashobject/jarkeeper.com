@@ -12,7 +12,7 @@
     [:tr
      [:td (first dep)]
      [:td (second dep)]
-     [:td (str (first (last dep)))]
+     [:td (:version-string (last dep))]
      [:td.status-column
        (if (nil? (last dep))
          [:span.status.up-to-date {:title "Up to date"}]

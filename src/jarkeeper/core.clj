@@ -15,10 +15,6 @@
   (:import (java.io PushbackReader)))
 
 
- (alter-var-root
-   #'clojure.tools.logging/*logger-factory*
-   (constantly (clojure.tools.logging.impl/jul-factory)))
-
 
 
 (defn- starting-num? [string]
@@ -32,7 +28,7 @@
 
 (defn check-deps [deps]
   (map (fn [dep]
-         (conj dep (anc/artifact-outdated? {:snapshots? false :qualified? false} dep))
+         (conj dep (anc/artifact-outdated? dep))
          ) deps))
 
 (defn calculate-stats [deps]
@@ -72,6 +68,9 @@
                  :stats stats)]
        (log/info "project map" result profiles)
        result))
+
+
+
 
 (defn- repo-redirect [{:keys [params]}]
   (log/info params)
