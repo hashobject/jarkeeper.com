@@ -55,6 +55,7 @@
         [_ project-name version & info] (read-project-clj repo-owner repo-name)
         info-map (apply hash-map info)
         deps (check-deps (:dependencies info-map))
+        plugins (check-deps (:plugins info-map))
         profiles (check-profiles (:profiles info-map))
         stats (calculate-stats deps)
         result (assoc info-map
@@ -65,6 +66,7 @@
                  :github-url github-url
                  :deps deps
                  :profiles profiles
+                 :plugins plugins
                  :stats stats)]
        (log/info "project map" result profiles)
        result))

@@ -34,15 +34,15 @@
      [:span.number (:out-of-date stats)]
      [:span.stats-label "out of date"]]]])
 
-(defn- render-profile [profile]
+(defn- render-table [header items]
   [:table.small-12.columns
     [:thead
      [:tr
-      [:th (name (first profile))]
+      [:th header]
       [:th {:width "180"} ""]
       [:th {:width "180"} ""]
       [:th {:width "90"} ""]]]
-   (render-deps (second profile))])
+   (render-deps items)])
 
 
 
@@ -66,19 +66,14 @@
            [:img {:src "/images/up-to-date.png"}])]
         (render-stats (:stats project))
         [:section.dependencies.row
-          [:table.small-12.columns
-            [:thead
-             [:tr
-              [:th "Dependency"]
-              [:th {:width "180"} "Used"]
-              [:th {:width "180"} "Latest"]
-              [:th {:width "90"} "Status"]]]
-            (render-deps (:deps project))]
+          (render-table "Dependency" (:deps project))
+;          (render-stats (:plugins project))
+          (render-table "Plugin" (:plugins project))
          (for [profile (:profiles project)]
            (if (first profile)
              (html
                (render-stats (nth profile 2))
-               (render-profile profile))))]
+               (render-table (name (first profile)) (second profile)))))]
 
        [:section.installation-instructions.row
         [:h2 "Markdown"]
