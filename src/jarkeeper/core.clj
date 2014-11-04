@@ -85,8 +85,8 @@
   (log/info "serving status image" filepath)
   (-> filepath
     (resp/resource-response)
-    (resp/header "cache-control"
-            "no-cache")))
+    (resp/header "cache-control" "no-cache")
+    (resp/header "content-type" "image/x-png")))
 
 (defroutes app-routes
   (GET "/" [] (index-view/index))
