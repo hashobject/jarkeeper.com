@@ -86,7 +86,7 @@
   (-> filepath
     (resp/resource-response)
     (resp/header "cache-control"
-            "public, max-age=300")))
+            "no-cache")))
 
 (defroutes app-routes
   (GET "/" [] (index-view/index))
