@@ -86,7 +86,7 @@
   (-> filepath
     (resp/resource-response)
     (resp/header "cache-control" "no-cache")
-    (resp/header "content-type" "image/x-png")))
+    (resp/header "content-type" "image/png")))
 
 (defroutes app-routes
   (GET "/" [] (index-view/index))
