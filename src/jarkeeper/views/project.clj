@@ -62,8 +62,8 @@
            [:span.version (:version project)]]
          [:h2 (:description project)]
          (if (> (:out-of-date (:stats project)) 0)
-           [:img {:src "/images/out-of-date.png"}]
-           [:img {:src "/images/up-to-date.png"}])]
+           [:img {:src "/images/out-of-date.png" :alt "Outdated dependencies"}]
+           [:img {:src "/images/up-to-date.png"  :alt "Up to date dependencies"}])]
         [:section.dependencies.row
           (render-stats (:stats project))
           (render-table "Dependency" (:deps project))
@@ -78,7 +78,7 @@
                (render-table (name (first profile)) (second profile)))))]
 
        [:section.installation-instructions.row
-        [:h2 "Markdown"]
+        [:h2 "Markdown with PNG image"]
         [:code
            (str "[![Dependencies Status]"
                 "(http://jarkeeper.com/"
@@ -90,7 +90,7 @@
                 "/"
                 (:repo-name project)
                 ")")]
-        [:h2 "HTML"]
+        [:h2 "HTML with PNG image"]
         [:code
            (escape-html (str "<a href=\""
                 "http://jarkeeper.com/"
@@ -102,6 +102,33 @@
                 "/"
                 (:repo-name project)
                 "/status.png\"></a>"))]
-        ]]
+        ]
+       [:section.installation-instructions.row
+        [:h2 "Markdown with SVG image"]
+        [:code
+           (str "[![Dependencies Status]"
+                "(http://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                "/status.svg)](http://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                ")")]
+        [:h2 "HTML with SVG image"]
+        [:code
+           (escape-html (str "<a href=\""
+                "http://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                "\" title=\"Dependencies status\"><img src=\"http://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                "/status.svg\"></a>"))]
+        ]
+       ]
      (common-views/common-footer)
     ]))

@@ -81,12 +81,19 @@
   (resp/redirect (str "/" (:repo-url params))))
 
 
-(defn status-resp [filepath]
+(defn png-status-resp [filepath]
   (log/info "serving status image" filepath)
   (-> filepath
     (resp/resource-response)
     (resp/header "cache-control" "no-cache")
     (resp/header "content-type" "image/png")))
+
+(defn svg-status-resp [filepath]
+  (log/info "serving status image" filepath)
+  (-> filepath
+    (resp/resource-response)
+    (resp/header "cache-control" "no-cache")
+    (resp/header "content-type" "image/svg+xml")))
 
 (defroutes app-routes
   (GET "/" [] (index-view/index))
@@ -108,8 +115,17 @@
        (let [project (project-map repo-owner repo-name)
              out-of-date-count (:out-of-date (:stats project))]
              (if (> out-of-date-count 0)
-               (status-resp "public/images/out-of-date.png")
-               (status-resp "public/images/up-to-date.png")))
+               (png-status-resp "public/images/out-of-date.png")
+               (png-status-resp "public/images/up-to-date.png")))
+      (catch Exception e {:status 404})))
+
+  (GET "/:repo-owner/:repo-name/status.svg" [repo-owner repo-name]
+    (try
+       (let [project (project-map repo-owner repo-name)
+             out-of-date-count (:out-of-date (:stats project))]
+             (if (> out-of-date-count 0)
+               (svg-status-resp "public/images/out-of-date.svg")
+               (svg-status-resp "public/images/up-to-date.svg")))
       (catch Exception e {:status 404})))
 
   (GET "/:any" []
