@@ -11,7 +11,8 @@
                  [ring-server "0.3.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ring/ring-jetty-adapter "1.3.1"]
-                 [ancient-clj "0.2.1"]]
+                 [ancient-clj "0.2.1"]
+                 [ring/ring-json "0.3.1"]]
   :ring {:handler jarkeeper.core/app }
   :plugins [[lein-ring "0.8.13"]]
   :profiles {

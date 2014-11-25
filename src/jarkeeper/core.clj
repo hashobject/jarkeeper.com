@@ -1,6 +1,7 @@
 (ns jarkeeper.core
   (:require [compojure.core :refer [defroutes GET POST PUT DELETE HEAD]]
             [ring.middleware.resource :refer [wrap-resource]]
+            [ring.middleware.json :refer [wrap-json-response]]
             [hiccup.middleware :refer [wrap-base-url]]
             [ring.adapter.jetty :refer [run-jetty]]
             [compojure.handler :as handler]
@@ -11,6 +12,7 @@
             [clojure.java.io :as io]
             [jarkeeper.views.index :as index-view]
             [jarkeeper.views.project :as project-view]
+            [jarkeeper.views.json :as project-json]
             [ancient-clj.core :as anc])
   (:import (java.io PushbackReader)))
 
@@ -128,6 +130,12 @@
                (svg-status-resp "public/images/up-to-date.svg")))
       (catch Exception e {:status 404})))
 
+  (GET "/:repo-owner/:repo-name/status.json" [repo-owner repo-name]
+    (try
+      (let [project (project-map repo-owner repo-name)]
+           (project-json/render project))
+      (catch Exception e {:status 404})))
+
   (GET "/:any" []
        (resp/redirect "/")))
 
@@ -135,6 +143,7 @@
 (def app
   (-> #'app-routes
      ;(require-https)
+     (wrap-json-response)
      (wrap-resource "public")
      (wrap-base-url)
      (handler/site)))
