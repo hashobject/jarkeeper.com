@@ -28,6 +28,7 @@
   * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
   * receive some notification when new versions are available
   * update some dedicated branch with new versions so they can be tested by continuous integration system for early feedback
+  * use https://github.com/jonase/eastwood to analyze code
 
 
 ## License
