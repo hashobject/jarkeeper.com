@@ -10,7 +10,7 @@
                  [ring/ring-core "1.3.2"]
                  [ring-server "0.3.1"]
                  [org.clojure/tools.logging "0.3.1"]
-                 [ring/ring-jetty-adapter "1.3.1"]
+                 [ring/ring-jetty-adapter "1.3.2"]
                  [ancient-clj "0.2.1"]
                  [ring/ring-json "0.3.1"]]
   :ring {:handler jarkeeper.core/app }
