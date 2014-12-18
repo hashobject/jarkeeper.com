@@ -7,7 +7,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.3.1"]
                  [hiccup "1.0.5"]
-                 [ring/ring-core "1.3.1"]
+                 [ring/ring-core "1.3.2"]
                  [ring-server "0.3.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ring/ring-jetty-adapter "1.3.1"]
