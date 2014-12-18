@@ -17,6 +17,6 @@
   :plugins [[lein-ring "0.8.13"]]
   :profiles {
     :dev {
-      :dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.3.1"]]}
+      :dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.3.2"]]}
     :prod {
       :ring {:open-browser? false, :stacktraces? false, :auto-reload? false}}})
