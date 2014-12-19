@@ -130,5 +130,4 @@
                 "/status.svg\"></a>"))]
         ]
        ]
-     (common-views/common-footer)
-    ]))
+     (common-views/common-footer)]))
