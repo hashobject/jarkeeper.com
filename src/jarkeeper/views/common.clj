@@ -34,7 +34,6 @@
     ga('send', 'pageview');
    "])
 
-
 (defn header []
   [:header.header.row
    [:div
