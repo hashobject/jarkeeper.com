@@ -17,7 +17,6 @@
   (:import (java.io PushbackReader)))
 
 
-
 (defn- starting-num? [string]
   (number? (read-string (str (first (name string))))))
 
