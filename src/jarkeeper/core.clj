@@ -137,7 +137,6 @@
   (GET "/:any" []
        (resp/redirect "/")))
 
-
 (def app
   (-> #'app-routes
      ;(require-https)
