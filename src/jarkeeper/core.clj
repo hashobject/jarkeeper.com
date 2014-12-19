@@ -20,7 +20,6 @@
 (defn- starting-num? [string]
   (number? (read-string (str (first (name string))))))
 
-
 (defn read-project-clj [repo-owner repo-name]
   (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
     (edn/read (PushbackReader. (io/reader url)))))
