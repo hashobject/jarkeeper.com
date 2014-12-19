@@ -13,7 +13,6 @@
     [:meta {:rel "author" :type "text/plain" :href "/humans.txt"}]
     [:link {:rel "shortcut icon" :href "/favicon.ico"}]))
 
-
 (defn common-footer []
   [:footer.footer.row
    [:div.small-12.columns
