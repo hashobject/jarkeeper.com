@@ -4,7 +4,7 @@
             [hiccup.core :refer [html]]
             [hiccup.page :refer [html5 include-css include-js]]
             [hiccup.util :refer [escape-html]]))
-
+          
 (defn- render-deps [deps]
   (for [dep deps]
     [:tr
@@ -15,7 +15,6 @@
        (if (nil? (last dep))
          [:span.status.up-to-date {:title "Up to date"}]
          [:span.status.out-of-date {:title "Out of date"}])]]))
-
 
 (defn- render-stats [stats]
   [:section.summary.row
