@@ -41,7 +41,6 @@
       [:th {:width "90"} ""]]]
    (render-deps items)])
 
-
 (defn index [project]
   (html5 {:lang "en"}
     [:head
