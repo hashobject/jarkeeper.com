@@ -5,7 +5,6 @@
             [hiccup.page :refer [html5 include-css include-js]]
             [hiccup.util :refer [escape-html]]))
 
-
 (defn- render-deps [deps]
   (for [dep deps]
     [:tr
