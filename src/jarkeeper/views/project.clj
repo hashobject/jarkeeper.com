@@ -121,6 +121,5 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.svg\"></a>"))]
-        ]]
+                "/status.svg\"></a>"))]]]
      (common-views/common-footer)]))
