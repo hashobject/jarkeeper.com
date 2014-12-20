@@ -96,8 +96,7 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.png\"></a>"))]
-        ]
+                "/status.png\"></a>"))]]
        [:section.installation-instructions.row
         [:h2 "Markdown with SVG image"]
         [:code
