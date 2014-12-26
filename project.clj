@@ -14,7 +14,8 @@
                  [ancient-clj "0.2.1"]
                  [ring/ring-json "0.3.1"]]
   :ring {:handler jarkeeper.core/app }
-  :plugins [[lein-ring "0.8.13"]]
+  :plugins [[lein-ring "0.8.13"]
+            [jonase/eastwood "0.2.0"]]
   :profiles {
     :dev {
       :dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.3.1"]]}

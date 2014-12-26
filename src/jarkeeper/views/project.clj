@@ -62,8 +62,8 @@
            [:span.version (:version project)]]
          [:h2 (:description project)]
          (if (> (:out-of-date (:stats project)) 0)
-           [:img {:src "/images/out-of-date.png" :alt "Outdated dependencies"}]
-           [:img {:src "/images/up-to-date.png"  :alt "Up to date dependencies"}])]
+           [:object {:type "image/svg+xml" :data "/images/out-of-date.svg" :alt "Outdated dependencies"}]
+           [:object {:type "image/svg+xml" :data "/images/up-to-date.svg" :alt "Up to date dependencies"}])]
         [:section.dependencies.row
           (render-stats (:stats project))
           (render-table "Dependency" (:deps project))
