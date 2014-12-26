@@ -4,7 +4,6 @@
 
 ## TODO
 
-
   * add support for webhooks. regenerate page after code was pushed.
   * add github auth. we can send notification to owner that deps were outdated.
   * add checks for alpha/beta versions, snapshots
@@ -28,6 +27,7 @@
   * look into ClojureSphere API  - https://github.com/jkk/clojuresphere
   * receive some notification when new versions are available
   * update some dedicated branch with new versions so they can be tested by continuous integration system for early feedback
+  * use https://github.com/jonase/eastwood to analyze code
 
 
 ## License

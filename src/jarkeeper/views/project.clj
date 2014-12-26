@@ -4,9 +4,7 @@
             [hiccup.core :refer [html]]
             [hiccup.page :refer [html5 include-css include-js]]
             [hiccup.util :refer [escape-html]]))
-
-
-
+          
 (defn- render-deps [deps]
   (for [dep deps]
     [:tr
@@ -17,7 +15,6 @@
        (if (nil? (last dep))
          [:span.status.up-to-date {:title "Up to date"}]
          [:span.status.out-of-date {:title "Out of date"}])]]))
-
 
 (defn- render-stats [stats]
   [:section.summary.row
@@ -43,8 +40,6 @@
       [:th {:width "180"} ""]
       [:th {:width "90"} ""]]]
    (render-deps items)])
-
-
 
 (defn index [project]
   (html5 {:lang "en"}
@@ -101,8 +96,7 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.png\"></a>"))]
-        ]
+                "/status.png\"></a>"))]]
        [:section.installation-instructions.row
         [:h2 "Markdown with SVG image"]
         [:code
@@ -127,8 +121,5 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.svg\"></a>"))]
-        ]
-       ]
-     (common-views/common-footer)
-    ]))
+                "/status.svg\"></a>"))]]]
+     (common-views/common-footer)]))

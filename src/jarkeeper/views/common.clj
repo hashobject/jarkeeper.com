@@ -13,7 +13,6 @@
     [:meta {:rel "author" :type "text/plain" :href "/humans.txt"}]
     [:link {:rel "shortcut icon" :href "/favicon.ico"}]))
 
-
 (defn common-footer []
   [:footer.footer.row
    [:div.small-12.columns
@@ -22,7 +21,6 @@
     [:p
      [:a {:href "http://github.com/hashobject/jarkeeper.com"} "Jarkeeper"]
      " is open source project hosted on GitHub."]]])
-
 
 (defn ga []
   [:script "
@@ -34,7 +32,6 @@
     ga('create', 'UA-44209834-1', 'jarkeeper.com');
     ga('send', 'pageview');
    "])
-
 
 (defn header []
   [:header.header.row
