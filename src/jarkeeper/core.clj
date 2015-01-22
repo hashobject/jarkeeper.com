@@ -43,7 +43,7 @@
          (let [profile (val profile-entry)
                profile-name (key profile-entry)]
                (if (not (starting-num? profile-name))
-                 (if-let [dependencies (:dependencies profile)]
+                 (if-let [dependencies (concat (:dependencies profile) (:plugins profile))]
                    (if-let [deps (check-deps dependencies)]
                      [profile-name deps (calculate-stats deps)])))))
        profiles))
