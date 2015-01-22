@@ -1,4 +1,4 @@
-(defproject jarkeeper "0.4.0-SNAPSHOT"
+(defproject jarkeeper "0.5.0-SNAPSHOT"
   :description "Identify outdated dependencies in your Clojure project."
   :url "http://jarkeeper.com"
   :license {:name "Eclipse Public License"
@@ -8,13 +8,13 @@
                  [compojure "1.3.1"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.3.2"]
-                 [ring-server "0.3.1"]
+                 [ring-server "0.4.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ring/ring-jetty-adapter "1.3.2"]
-                 [ancient-clj "0.2.1"]
+                 [ancient-clj "0.3.2"]
                  [ring/ring-json "0.3.1"]]
   :ring {:handler jarkeeper.core/app }
-  :plugins [[lein-ring "0.8.13"]
+  :plugins [[lein-ring "0.9.1"]
             [jonase/eastwood "0.2.1"]]
   :profiles {
     :dev {
