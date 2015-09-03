@@ -5,7 +5,6 @@
             [hiccup.middleware :refer [wrap-base-url]]
             [ring.adapter.jetty :refer [run-jetty]]
             [compojure.handler :as handler]
-            [compojure.route :as route]
             [ring.util.response :as resp]
             [clojure.tools.logging :as log]
             [clojure.edn :as edn]
@@ -18,17 +17,27 @@
 
 
 (defn- starting-num? [string]
-  (number? (read-string (str (first (name string))))))
+  (some-> string
+          name
+          first
+          str
+          read-string
+          number?))
+
+(defn safe-read [s]
+  (binding [*read-eval* false]
+    (read-string s)))
 
 (defn read-project-clj [repo-owner repo-name]
   (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
-    (edn/read (PushbackReader. (io/reader url)))))
+    (-> url
+        io/reader
+        (PushbackReader.)
+        edn/read))
 
 
 (defn check-deps [deps]
-  (map (fn [dep]
-         (conj dep (anc/artifact-outdated? dep {:snapshots? false :qualified? false}))
-         ) deps))
+  (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? true}))) deps))
 
 (defn calculate-stats [deps]
   (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
@@ -73,12 +82,9 @@
        result))
 
 
-
-
 (defn- repo-redirect [{:keys [params]}]
   (log/info params)
   (resp/redirect (str "/" (:repo-url params))))
-
 
 (defn png-status-resp [filepath]
   (log/info "serving status image" filepath)
@@ -103,10 +109,12 @@
 
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
     (try
+      (log/info "processing" repo-owner repo-name)
       (let [project (project-map repo-owner repo-name)]
            (log/info "project-def" project)
            (project-view/index project))
       (catch Exception e
+        (log/error "error happened during processing" e)
         (resp/redirect "/"))))
 
   (GET "/:repo-owner/:repo-name/status.png" [repo-owner repo-name]
@@ -138,7 +146,6 @@
 
 (def app
   (-> #'app-routes
-     ;(require-https)
      (wrap-json-response)
      (wrap-resource "public")
      (wrap-base-url)
