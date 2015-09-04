@@ -37,14 +37,11 @@
 
 (defn read-project-clj [repo-owner repo-name]
   (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
-    (-> url
-        io/reader
-        (PushbackReader.)
-        edn/read))
+    (edn/read (PushbackReader. (io/reader url)))))
 
 
 (defn check-deps [deps]
-  (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? true}))) deps))
+  (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? true})) deps))
 
 (defn calculate-stats [deps]
   (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
@@ -66,27 +63,32 @@
 
 
 (defn project-map [repo-owner repo-name]
-  (let [github-url (str "https://github.com/" repo-owner "/" repo-name)
-        [_ project-name version & info] (read-project-clj repo-owner repo-name)
-        info-map (apply hash-map info)
-        deps (check-deps (:dependencies info-map))
-        plugins (check-deps (:plugins info-map))
-        profiles (check-profiles (:profiles info-map))
-        stats (calculate-stats deps)
-        plugins-stats (calculate-stats plugins)
-        result (assoc info-map
-                 :name project-name
-                 :repo-name repo-name
-                 :repo-owner repo-owner
-                 :version version
-                 :github-url github-url
-                 :deps deps
-                 :profiles profiles
-                 :plugins plugins
-                 :stats stats
-                 :plugins-stats plugins-stats)]
-       (log/info "project map" result profiles)
-       result))
+  (let [github-url (str "https://github.com/" repo-owner "/" repo-name)]
+        (if-let [project-clj-content (read-project-clj repo-owner repo-name)]
+            (do
+              (println "project-clj" project-clj-content)
+              (let [[_ project-name version & info] project-clj-content
+                    info-map (apply hash-map info)
+                    deps (check-deps (:dependencies info-map))
+                    plugins (check-deps (:plugins info-map))
+                    profiles (check-profiles (:profiles info-map))
+                    stats (calculate-stats deps)
+                    plugins-stats (calculate-stats plugins)
+                    result (assoc info-map
+                             :name project-name
+                             :repo-name repo-name
+                             :repo-owner repo-owner
+                             :version version
+                             :github-url github-url
+                             :deps deps
+                             :profiles profiles
+                             :plugins plugins
+                             :stats stats
+                             :plugins-stats plugins-stats)]
+                (log/info "project map" result profiles)
+                result))
+
+            )))
 
 
 (defn- repo-redirect [{:keys [params]}]
