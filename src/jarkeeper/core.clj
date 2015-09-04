@@ -12,9 +12,16 @@
             [jarkeeper.views.index :as index-view]
             [jarkeeper.views.project :as project-view]
             [jarkeeper.views.json :as project-json]
-            [ancient-clj.core :as anc])
+            [ancient-clj.core :as anc]
+            [clj-time.core :as t]
+            [clj-time.format :as f])
+
   (:import (java.io PushbackReader)))
 
+(def last-modified-formatter (f/formatter "EEE, dd MMM yyyy HH:mm:ss zzz"))
+
+(defn last-modified []
+  (f/unparse last-modified-formatter (t/now)))
 
 (defn- starting-num? [string]
   (some-> string
@@ -91,6 +98,7 @@
   (-> filepath
     (resp/resource-response)
     (resp/header "cache-control" "no-cache")
+    (resp/header "last-modified" (last-modified))
     (resp/header "content-type" "image/png")))
 
 (defn svg-status-resp [filepath]
@@ -98,6 +106,7 @@
   (-> filepath
     (resp/resource-response)
     (resp/header "cache-control" "no-cache")
+    (resp/header "last-modified" (last-modified))
     (resp/header "content-type" "image/svg+xml")))
 
 (defroutes app-routes

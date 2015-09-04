@@ -13,7 +13,8 @@
                  [ring/ring-jetty-adapter "1.4.0"]
                  [ancient-clj "0.3.11"]
                  [ring/ring-json "0.4.0"]
-                 [slingshot/slingshot "0.12.2"]]
+                 [slingshot/slingshot "0.12.2"]
+                 [clj-time "0.11.0"]]
   :ring {:handler jarkeeper.core/app }
   :plugins [[lein-ring "0.9.6"]
             [jonase/eastwood "0.2.1"]]
