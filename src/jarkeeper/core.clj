@@ -45,7 +45,7 @@
 
 
 (defn check-deps [deps]
-  (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? true})) deps))
+  (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? false})) deps))
 
 (defn calculate-stats [deps]
   (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
