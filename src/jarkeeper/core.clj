@@ -12,16 +12,20 @@
             [jarkeeper.views.index :as index-view]
             [jarkeeper.views.project :as project-view]
             [jarkeeper.views.json :as project-json]
-            [ancient-clj.core :as anc]
-            [clj-time.core :as t]
-            [clj-time.format :as f])
+            [ancient-clj.core :as anc])
 
-  (:import (java.io PushbackReader)))
+  (:import (java.io PushbackReader)
+           [java.text SimpleDateFormat]
+           [java.util Locale TimeZone]))
 
-(def last-modified-formatter (f/formatter "EEE, dd MMM yyyy HH:mm:ss zzz"))
+(def last-modified-formatter "EEE, dd MMM yyyy HH:mm:ss zzz")
+
+(defn- ^SimpleDateFormat formatter [format]
+  (doto (SimpleDateFormat. ^String format Locale/US)
+    (.setTimeZone (TimeZone/getTimeZone "GMT"))))
 
 (defn last-modified []
-  (f/unparse last-modified-formatter (t/now)))
+  (.format (formatter last-modified-formatter) (java.util.Date.)))
 
 (defn- starting-num? [string]
   (some-> string
