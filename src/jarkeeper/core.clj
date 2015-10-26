@@ -40,9 +40,26 @@
     (read-string s)))
 
 (defn read-project-clj [repo-owner repo-name]
-  (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
-    (edn/read (PushbackReader. (io/reader url)))))
+  (try
+    (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
+      (edn/read (PushbackReader. (io/reader url))))
+    (catch Exception e
+      nil)))
 
+(defn read-build-boot [repo-owner repo-name]
+  (try
+    (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/build.boot")]
+      (safe-read (slurp url)))
+    (catch Exception e
+      nil)))
+
+(defn read-boot-deps [repo-owner repo-name]
+  (if-let [parsed-build-file (read-build-boot repo-owner repo-name)]
+    (some->> parsed-build-file
+            rest
+            (apply hash-map)
+            :dependencies
+            last)))
 
 (defn check-deps [deps]
   (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? false})) deps))
@@ -65,8 +82,25 @@
                      [profile-name deps (calculate-stats deps)])))))
        profiles))
 
+(defn boot-project-map [repo-owner repo-name]
+  (let [github-url (str "https://github.com/" repo-owner "/" repo-name)]
+       (if-let [dependencies (read-boot-deps repo-owner repo-name)]
+           (do
+             (println "boot-build deps" read-boot-deps)
+             (let [deps (check-deps dependencies)
+                   stats (calculate-stats deps)
+                   result { :boot? true
+                            :name repo-name
+                            :repo-name repo-name
+                            :repo-owner repo-owner
+                            :github-url github-url
+                            :deps deps
+                            :stats stats
+                            }]
+               (log/info "boot project map" result)
+               result)))))
 
-(defn project-map [repo-owner repo-name]
+(defn lein-project-map [repo-owner repo-name]
   (let [github-url (str "https://github.com/" repo-owner "/" repo-name)]
         (if-let [project-clj-content (read-project-clj repo-owner repo-name)]
             (do
@@ -79,6 +113,7 @@
                     stats (calculate-stats deps)
                     plugins-stats (calculate-stats plugins)
                     result (assoc info-map
+                             :lein? true
                              :name project-name
                              :repo-name repo-name
                              :repo-owner repo-owner
@@ -90,10 +125,14 @@
                              :stats stats
                              :plugins-stats plugins-stats)]
                 (log/info "project map" result profiles)
-                result))
+                result)))))
 
-            )))
-
+(defn project-map [repo-owner repo-name]
+  (let [lein-result (future (lein-project-map repo-owner repo-name))
+        boot-result (future (boot-project-map repo-owner repo-name))]
+    (if (nil? @lein-result)
+      @boot-result
+      @lein-result)))
 
 (defn- repo-redirect [{:keys [params]}]
   (log/info params)
