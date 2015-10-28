@@ -57,8 +57,8 @@
            [:span.version (:version project)]]
          [:h2 (:description project)]
          (if (> (:out-of-date (:stats project)) 0)
-           [:object {:type "image/svg+xml" :data "/images/out-of-date.svg" :alt "Outdated dependencies"}]
-           [:object {:type "image/svg+xml" :data "/images/up-to-date.svg" :alt "Up to date dependencies"}])]
+           [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/out-of-date.svg" :alt "Outdated dependencies"}]
+           [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/up-to-date.svg" :alt "Up to date dependencies"}])]
         [:section.dependencies.row
           (render-stats (:stats project))
           (render-table "Dependency" (:deps project))

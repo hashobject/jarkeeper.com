@@ -647,7 +647,7 @@ form.find-form label{font-size:1.1em}
 button{background-color:#1cb8e8;color:#fff;text-transform:uppercase}
 #repo-url{height:38px;padding:0 10px}
 article.project-content header{position:relative;}
-article.project-content header object{position:absolute;right:0;top:10px;width:140px;height:20px}
+article.project-content header img{position:absolute;right:0;top:10px;width:140px;height:20px}
 article.index-content{background:#1cb8e8;border-top:1px solid #14a3d0;border-bottom:1px solid #14a3d0;padding:60px 0;margin:30px 0;}
 article.index-content h1{color:#013d4f;font-weight:normal;text-transform:none;text-align:center;font-size:30px;margin-bottom:30px;font-family:'PT Sans',sans-serif}
 article.index-content .find-form{margin-bottom:0;}
