@@ -37,19 +37,21 @@
 
 (defn safe-read [s]
   (binding [*read-eval* false]
-    (read-string s)))
+    (read s)))
 
 (defn read-project-clj [repo-owner repo-name]
   (try
     (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
-      (edn/read (PushbackReader. (io/reader url))))
+      (with-open [rdr (PushbackReader. (io/reader url))]
+        (safe-read rdr)))
     (catch Exception e
       nil)))
 
 (defn read-build-boot [repo-owner repo-name]
   (try
     (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/build.boot")]
-      (safe-read (slurp url)))
+      (with-open [rdr (PushbackReader. (io/reader url))]
+        (safe-read rdr)))
     (catch Exception e
       nil)))
 
