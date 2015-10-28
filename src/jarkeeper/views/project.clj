@@ -4,7 +4,7 @@
             [hiccup.core :refer [html]]
             [hiccup.page :refer [html5 include-css include-js]]
             [hiccup.util :refer [escape-html]]))
-          
+
 (defn- render-deps [deps]
   (for [dep deps]
     [:tr
@@ -76,11 +76,11 @@
         [:h2 "Markdown with PNG image"]
         [:code
            (str "[![Dependencies Status]"
-                "(http://jarkeeper.com/"
+                "(https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.png)](http://jarkeeper.com/"
+                "/status.png)](https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
@@ -88,11 +88,11 @@
         [:h2 "HTML with PNG image"]
         [:code
            (escape-html (str "<a href=\""
-                "http://jarkeeper.com/"
+                "https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "\" title=\"Dependencies status\"><img src=\"http://jarkeeper.com/"
+                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
@@ -101,11 +101,11 @@
         [:h2 "Markdown with SVG image"]
         [:code
            (str "[![Dependencies Status]"
-                "(http://jarkeeper.com/"
+                "(https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.svg)](http://jarkeeper.com/"
+                "/status.svg)](https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
@@ -113,11 +113,11 @@
         [:h2 "HTML with SVG image"]
         [:code
            (escape-html (str "<a href=\""
-                "http://jarkeeper.com/"
+                "https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "\" title=\"Dependencies status\"><img src=\"http://jarkeeper.com/"
+                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
