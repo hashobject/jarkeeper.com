@@ -39,6 +39,14 @@
   (binding [*read-eval* false]
     (read s)))
 
+(defn read-file
+  "Reads all forms in a file lazily."
+  [r]
+  (binding [*read-eval* false]
+    (let [x (read r false ::eof)]
+      (if-not (= ::eof x)
+        (cons x (lazy-seq (read-file r)))))))
+
 (defn read-project-clj [repo-owner repo-name]
   (try
     (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
@@ -47,21 +55,25 @@
     (catch Exception e
       nil)))
 
+(defn read-boot-deps
+  "Tries to read first set-env! form in the build.boot file and use that for dependencies."
+  [parsed-build-file]
+  (some->> parsed-build-file
+           (some (fn [form]
+                   (if (= 'set-env! (first form))
+                     form)))
+           rest
+           (apply hash-map)
+           :dependencies
+           last))
+
 (defn read-build-boot [repo-owner repo-name]
   (try
     (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/build.boot")]
       (with-open [rdr (PushbackReader. (io/reader url))]
-        (safe-read rdr)))
+        (read-boot-deps (read-file rdr))))
     (catch Exception e
       nil)))
-
-(defn read-boot-deps [repo-owner repo-name]
-  (if-let [parsed-build-file (read-build-boot repo-owner repo-name)]
-    (some->> parsed-build-file
-            rest
-            (apply hash-map)
-            :dependencies
-            last)))
 
 (defn check-deps [deps]
   (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? false})) deps))
@@ -86,7 +98,7 @@
 
 (defn boot-project-map [repo-owner repo-name]
   (let [github-url (str "https://github.com/" repo-owner "/" repo-name)]
-       (if-let [dependencies (read-boot-deps repo-owner repo-name)]
+       (if-let [dependencies (read-build-boot repo-owner repo-name)]
            (do
              (println "boot-build deps" read-boot-deps)
              (let [deps (check-deps dependencies)
