@@ -36,4 +36,4 @@
 (defn header []
   [:header.header.row
    [:div
-    [:a {:href "http://www.jarkeeper.com"}[:div.logo]]]])
+    [:a {:href "https://jarkeeper.com"}[:div.logo]]]])
