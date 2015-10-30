@@ -14,6 +14,7 @@
                  [ancient-clj "0.3.11"]
                  [ring/ring-json "0.3.1"]
                  [slingshot/slingshot "0.12.2"]]
+  :main jarkeeper.core
   :ring {:handler jarkeeper.core/app }
   :plugins [[lein-ring "0.9.2"]
             [jonase/eastwood "0.2.1"]]
