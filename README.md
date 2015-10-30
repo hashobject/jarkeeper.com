@@ -1,6 +1,7 @@
 # jarkeeper.com
 
 [![Dependencies Status](https://jarkeeper.com/hashobject/jarkeeper.com/status.svg)](http://jarkeeper.com/hashobject/jarkeeper.com)
+[![Circle CI](https://circleci.com/gh/hashobject/jarkeeper.com.svg?style=svg)](https://circleci.com/gh/hashobject/jarkeeper.com)
 [![Chat](http://chat.gitrun.com/images/gitchat-badge.svg)](http://chat.gitrun.com/room/hashobject/jarkeeper.com/11)
 
 ## TODO
