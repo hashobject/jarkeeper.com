@@ -3,8 +3,8 @@
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.json :refer [wrap-json-response]]
             [hiccup.middleware :refer [wrap-base-url]]
+            [ring.middleware.defaults :refer :all]
             [ring.adapter.jetty :refer [run-jetty]]
-            [compojure.handler :as handler]
             [ring.util.response :as resp]
             [clojure.tools.logging :as log]
             [clojure.edn :as edn]
@@ -217,7 +217,7 @@
      (wrap-json-response)
      (wrap-resource "public")
      (wrap-base-url)
-     (handler/site)))
+     (wrap-defaults site-defaults)))
 
 (defn -main [& args]
   (let [ip (get (System/getenv) "OPENSHIFT_CLOJURE_HTTP_IP" "0.0.0.0")
