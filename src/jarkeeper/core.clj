@@ -3,7 +3,7 @@
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.json :refer [wrap-json-response]]
             [hiccup.middleware :refer [wrap-base-url]]
-            [ring.adapter.jetty :refer [run-jetty]]
+            [aleph.http :as http]
             [compojure.handler :as handler]
             [ring.util.response :as resp]
             [clojure.tools.logging :as log]
@@ -222,4 +222,4 @@
 (defn -main [& args]
   (let [ip (get (System/getenv) "OPENSHIFT_CLOJURE_HTTP_IP" "0.0.0.0")
         port (Integer/parseInt (get (System/getenv) "OPENSHIFT_CLOJURE_HTTP_PORT" "8090"))]
-      (run-jetty app {:host ip :port port})))
+      (http/start-server app {:host ip :port port})))
