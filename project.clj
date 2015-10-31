@@ -15,7 +15,7 @@
                  [ancient-clj "0.3.11"]
                  [ring/ring-json "0.4.0"]
                  [slingshot/slingshot "0.12.2"]
-                 [environ "1.0.0"]
+                 [environ "1.0.1"]
                  [clj-rollbar "0.0.3"]]
   :main jarkeeper.core
   :ring {:handler jarkeeper.core/app }
