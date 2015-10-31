@@ -20,7 +20,8 @@
   :main jarkeeper.core
   :ring {:handler jarkeeper.core/app }
   :plugins [[lein-ring "0.9.7"]
-            [jonase/eastwood "0.2.1"]]
+            [jonase/eastwood "0.2.1"]
+            [lein-kibit "0.1.2"]]
   :profiles {
     :dev {
       :dependencies [[ring-mock "0.1.5"]
