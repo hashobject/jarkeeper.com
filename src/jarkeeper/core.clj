@@ -235,7 +235,7 @@
      (wrap-json-response)
      (wrap-resource "public")
      (wrap-base-url)
-     (wrap-defaults site-defaults)))
+     (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
 
 (defn -main [& args]
   (let [ip (get (System/getenv) "OPENSHIFT_CLOJURE_HTTP_IP" "0.0.0.0")
