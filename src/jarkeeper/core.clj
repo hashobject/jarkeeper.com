@@ -23,7 +23,9 @@
 
 
 (def fire-root (m/connect "https://jarkeeper.firebaseio.com"))
-(m/auth-custom fire-root (env :firebase-token) prn-str)
+(if (env :firebase-token)
+  (m/auth-custom fire-root (env :firebase-token) prn-str))
+
 
 (def last-modified-formatter "EEE, dd MMM yyyy HH:mm:ss zzz")
 
