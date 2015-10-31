@@ -12,7 +12,9 @@
             [jarkeeper.views.index :as index-view]
             [jarkeeper.views.project :as project-view]
             [jarkeeper.views.json :as project-json]
-            [ancient-clj.core :as anc])
+            [ancient-clj.core :as anc]
+            [environ.core :refer [env]]
+            [clj-rollbar.core :as rollbar])
 
   (:import (java.io PushbackReader)
            [java.text SimpleDateFormat]
@@ -53,6 +55,7 @@
       (with-open [rdr (PushbackReader. (io/reader url))]
         (safe-read rdr)))
     (catch Exception e
+      (rollbar/report-exception (env :rollbar-token) "production" e)
       nil)))
 
 (defn read-boot-deps
@@ -73,6 +76,7 @@
       (with-open [rdr (PushbackReader. (io/reader url))]
         (read-boot-deps (read-file rdr))))
     (catch Exception e
+      (rollbar/report-exception (env :rollbar-token) "production" e)
       nil)))
 
 (defn check-deps [deps]
@@ -178,12 +182,20 @@
   (GET "/:repo-owner/:repo-name" [repo-owner repo-name]
     (try
       (log/info "processing" repo-owner repo-name)
-      (let [project (project-map repo-owner repo-name)]
-           (log/info "project-def" project)
-           (project-view/index project))
+      (if-let [project (project-map repo-owner repo-name)]
+          (do
+            (log/info "project-def" project)
+            (project-view/index project))
+          (do
+            (rollbar/report-message (env :rollbar-token)
+              "production"
+              (str "Repo " repo-owner "/" repo-name "not found") "error")
+            (resp/redirect "/")))
       (catch Exception e
-        (log/error "error happened during processing" e)
-        (resp/redirect "/"))))
+        (do
+          (rollbar/report-exception (env :rollbar-token) "production" e)
+          (log/error "error happened during processing" e)
+          (resp/redirect "/")))))
 
   (GET "/:repo-owner/:repo-name/status.png" [repo-owner repo-name]
     (try
@@ -192,7 +204,9 @@
              (if (> out-of-date-count 0)
                (png-status-resp "public/images/out-of-date.png")
                (png-status-resp "public/images/up-to-date.png")))
-      (catch Exception e {:status 404})))
+      (catch Exception e
+        (rollbar/report-exception (env :rollbar-token) "production" e)
+        {:status 404})))
 
   (GET "/:repo-owner/:repo-name/status.svg" [repo-owner repo-name]
     (try
@@ -201,13 +215,17 @@
              (if (> out-of-date-count 0)
                (svg-status-resp "public/images/out-of-date.svg")
                (svg-status-resp "public/images/up-to-date.svg")))
-      (catch Exception e {:status 404})))
+      (catch Exception e
+        (rollbar/report-exception (env :rollbar-token) "production" e)
+        {:status 404})))
 
   (GET "/:repo-owner/:repo-name/status.json" [repo-owner repo-name]
     (try
       (let [project (project-map repo-owner repo-name)]
            (project-json/render project))
-      (catch Exception e {:status 404})))
+      (catch Exception e
+        (rollbar/report-exception (env :rollbar-token) "production" e)
+        {:status 404})))
 
   (GET "/:any" []
        (resp/redirect "/")))
