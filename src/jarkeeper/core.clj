@@ -248,9 +248,9 @@
   (GET "/:repo-owner/:repo-name/downloads.svg" [repo-owner repo-name]
     (try
       (do
-        ; (m/swap!
-        ;   (get-ref :downloads repo-owner repo-name)
-        ;   (fn [c] (if (nil? c) 1 (inc c))))
+        (m/swap!
+          (get-ref :downloads repo-owner repo-name)
+          (fn [c] (if (nil? c) 1 (inc c))))
         (-> (downloads/get-badge repo-owner repo-name)
           (resp/response)
           (resp/header "cache-control" "no-cache")
@@ -259,7 +259,7 @@
 
        ))
       (catch Exception e
-        ; (rollbar/report-exception (env :rollbar-token) "production" e)
+        (rollbar/report-exception (env :rollbar-token) "production" e)
         {:status 404})))
 
   (GET "/:repo-owner/:repo-name/status.json" [repo-owner repo-name]
