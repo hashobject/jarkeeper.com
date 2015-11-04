@@ -9,6 +9,7 @@
             [clojure.tools.logging :as log]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [jarkeeper.downloads :as downloads]
             [jarkeeper.views.index :as index-view]
             [jarkeeper.views.project :as project-view]
             [jarkeeper.views.json :as project-json]
@@ -23,7 +24,9 @@
 
 
 (def fire-root (m/connect "https://jarkeeper.firebaseio.com"))
-(m/auth-custom fire-root (env :firebase-token) prn-str)
+(if (env :firebase-token)
+  (m/auth-custom fire-root (env :firebase-token) prn-str))
+
 
 (def last-modified-formatter "EEE, dd MMM yyyy HH:mm:ss zzz")
 
@@ -238,6 +241,23 @@
              (if (> out-of-date-count 0)
                (svg-status-resp "public/images/out-of-date.svg")
                (svg-status-resp "public/images/up-to-date.svg"))))
+      (catch Exception e
+        (rollbar/report-exception (env :rollbar-token) "production" e)
+        {:status 404})))
+
+  (GET "/:repo-owner/:repo-name/downloads.svg" [repo-owner repo-name]
+    (try
+      (do
+        (m/swap!
+          (get-ref :downloads repo-owner repo-name)
+          (fn [c] (if (nil? c) 1 (inc c))))
+        (-> (downloads/get-badge repo-owner repo-name)
+          (resp/response)
+          (resp/header "cache-control" "no-cache")
+          (resp/header "last-modified" (last-modified))
+          (resp/header "content-type" "image/svg+xml")
+
+       ))
       (catch Exception e
         (rollbar/report-exception (env :rollbar-token) "production" e)
         {:status 404})))

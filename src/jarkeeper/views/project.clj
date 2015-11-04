@@ -56,9 +56,12 @@
            [:a {:href (:github-url project)} (:name project)]
            [:span.version (:version project)]]
          [:h2 (:description project)]
-         (if (> (:out-of-date (:stats project)) 0)
-           [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/out-of-date.svg" :alt "Outdated dependencies"}]
-           [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/up-to-date.svg" :alt "Up to date dependencies"}])]
+         [:div.badges
+           (if (> (:out-of-date (:stats project)) 0)
+             [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/out-of-date.svg" :alt "Outdated dependencies"}]
+             [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/up-to-date.svg" :alt "Up to date dependencies"}])
+
+            [:img {:src (str "/" (:repo-owner project)  "/" (:repo-name project) "/downloads.svg") :alt "Downloads"}]]]
         [:section.dependencies.row
           (render-stats (:stats project))
           (render-table "Dependency" (:deps project))

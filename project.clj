@@ -17,7 +17,8 @@
                  [slingshot/slingshot "0.12.2"]
                  [environ "1.0.1"]
                  [clj-rollbar "0.0.3"]
-                 [matchbox "0.0.8-SNAPSHOT"]]
+                 [matchbox "0.0.8-SNAPSHOT"]
+                 [clj-http "2.0.0"]]
   :main jarkeeper.core
   :ring {:handler jarkeeper.core/app }
   :plugins [[lein-ring "0.9.7"]
