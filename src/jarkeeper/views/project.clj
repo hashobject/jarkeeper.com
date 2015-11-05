@@ -129,7 +129,7 @@
        [:section.installation-instructions.row
         [:h2 "Clojars downloads badge - Markdown with SVG image"]
         [:code
-           (str "[![Dependencies Status]"
+           (str "[![Downloads]"
                 "(https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
@@ -147,7 +147,7 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
+                "\" title=\"Downloads\"><img src=\"https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
