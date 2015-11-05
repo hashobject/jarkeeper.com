@@ -17,3 +17,4 @@ frontend/node_modules/
 lein.bat
 .nrepl-port
 ssl/
+deploy.yaml

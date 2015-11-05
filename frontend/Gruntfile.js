@@ -12,7 +12,7 @@ module.exports = function(grunt) {
           'include css': true
         },
         files: {
-          '../resources/public/app.css': 'styl/index.styl' // 1:1 compile
+          '../cdn/app.css': 'styl/index.styl' // 1:1 compile
         }
       }
     },

@@ -58,8 +58,8 @@
          [:h2 (:description project)]
          [:div.badges
            (if (> (:out-of-date (:stats project)) 0)
-             [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/out-of-date.svg" :alt "Outdated dependencies"}]
-             [:img {:src "https://s3.amazonaws.com/cdn.jarkeeper.com/images/up-to-date.svg" :alt "Up to date dependencies"}])
+             [:img {:src "https://cdn.jarkeeper.com/images/out-of-date.svg" :alt "Outdated dependencies"}]
+             [:img {:src "https://cdn.jarkeeper.com/images/up-to-date.svg" :alt "Up to date dependencies"}])
 
             [:img {:src (str "/" (:repo-owner project)  "/" (:repo-name project) "/downloads.svg") :alt "Downloads"}]]]
         [:section.dependencies.row
@@ -76,31 +76,6 @@
                (render-table (name (first profile)) (second profile)))))]
 
        [:section.installation-instructions.row
-        [:h2 "Markdown with PNG image"]
-        [:code
-           (str "[![Dependencies Status]"
-                "(https://jarkeeper.com/"
-                (:repo-owner project)
-                "/"
-                (:repo-name project)
-                "/status.png)](https://jarkeeper.com/"
-                (:repo-owner project)
-                "/"
-                (:repo-name project)
-                ")")]
-        [:h2 "HTML with PNG image"]
-        [:code
-           (escape-html (str "<a href=\""
-                "https://jarkeeper.com/"
-                (:repo-owner project)
-                "/"
-                (:repo-name project)
-                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
-                (:repo-owner project)
-                "/"
-                (:repo-name project)
-                "/status.png\"></a>"))]]
-       [:section.installation-instructions.row
         [:h2 "Markdown with SVG image"]
         [:code
            (str "[![Dependencies Status]"
@@ -115,7 +90,8 @@
                 ")")]
         [:h2 "HTML with SVG image"]
         [:code
-           (escape-html (str "<a href=\""
+           (escape-html
+             (str "<a href=\""
                 "https://jarkeeper.com/"
                 (:repo-owner project)
                 "/"
@@ -124,5 +100,58 @@
                 (:repo-owner project)
                 "/"
                 (:repo-name project)
-                "/status.svg\"></a>"))]]]
+                "/status.svg\"></a>"))]]
+      [:section.installation-instructions.row
+       [:h2 "Markdown with PNG image"]
+       [:code
+          (str "[![Dependencies Status]"
+               "(https://jarkeeper.com/"
+               (:repo-owner project)
+               "/"
+               (:repo-name project)
+               "/status.png)](https://jarkeeper.com/"
+               (:repo-owner project)
+               "/"
+               (:repo-name project)
+               ")")]
+       [:h2 "HTML with PNG image"]
+       [:code
+          (escape-html
+            (str "<a href=\""
+               "https://jarkeeper.com/"
+               (:repo-owner project)
+               "/"
+               (:repo-name project)
+               "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
+               (:repo-owner project)
+               "/"
+               (:repo-name project)
+               "/status.png\"></a>"))]]
+       [:section.installation-instructions.row
+        [:h2 "Clojars downloads badge - Markdown with SVG image"]
+        [:code
+           (str "[![Dependencies Status]"
+                "(https://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                "/downloads.svg)](https://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                ")")]
+        [:h2 "Clojars downloads badge - HTML with SVG image"]
+        [:code
+           (escape-html
+             (str "<a href=\""
+                "https://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                "\" title=\"Dependencies status\"><img src=\"https://jarkeeper.com/"
+                (:repo-owner project)
+                "/"
+                (:repo-name project)
+                "/downloads.svg\"></a>"))]]
+                ]
      (common-views/common-footer)]))
