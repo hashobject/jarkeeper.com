@@ -4,14 +4,22 @@
             [clj-http.client :as client]))
 
 
-(def svg-file (io/file
-                 (io/resource
-                   "public/images/downloads.svg" )))
+(def downloads-svg-file
+  (-> "public/images/downloads.svg"
+      io/resource
+      io/file))
 
-(def svg (slurp svg-file))
+(def downloads-svg (slurp downloads-svg-file))
+
+(def no-downloads-svg-file
+  (-> "public/images/no-downloads.svg"
+      io/resource
+      io/file))
+
+(def no-downloads-svg (slurp no-downloads-svg-file))
 
 (defn create-badge [downloads]
-  (str/replace svg #"PLACEHOLDER" downloads))
+  (str/replace downloads-svg #"PLACEHOLDER" downloads))
 
 
 (defn clojars-fetch [artifact]
@@ -41,4 +49,6 @@
   (if-let [downloads (get-downloads repo-owner repo-name)]
     (-> downloads
         format-downloads
-        create-badge)))
+        create-badge)
+    ; if no downloads found
+    no-downloads-svg))
