@@ -15,10 +15,6 @@
           read-string
           number?))
 
-(defn safe-read [s]
-  (binding [*read-eval* false]
-    (read s)))
-
 (defn read-file
   "Reads all forms in a file lazily."
   [r]
@@ -27,11 +23,20 @@
       (if-not (= ::eof x)
         (cons x (lazy-seq (read-file r)))))))
 
+(defn read-lein-project
+  "Tries to read first project form in the project.clj file and use that"
+  [parsed-project-file]
+  (some->> parsed-project-file
+           (some (fn [form]
+                   (if (= 'defproject (first form))
+                     form)))
+))
+
 (defn read-project-clj [repo-owner repo-name]
   (try
     (let [url (str "https://raw.github.com/" repo-owner "/" repo-name "/master/project.clj")]
       (with-open [rdr (PushbackReader. (io/reader url))]
-        (safe-read rdr)))
+        (read-lein-project (read-file rdr))))
     (catch Exception _
       nil)))
 

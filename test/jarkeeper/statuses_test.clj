@@ -8,6 +8,11 @@
 (defproject jarkeeper \"0.5.1-SNAPSHOT\"
   :dependencies [[org.clojure/clojure \"1.6.0\"]])")
 
+(def project-clj-with-extra-defs "
+(def driver-version \"2.1.8\")
+(defproject jarkeeper \"0.5.1-SNAPSHOT\"
+  :dependencies [[org.clojure/clojure \"1.6.0\"]])")
+
 (def project-clj-eval "
 (defproject jarkeeper \"0.5.1-SNAPSHOT\"
   :dependencies [[org.clojure/clojure \"1.6.0\"]]
@@ -16,13 +21,17 @@
 (deftest read-project-clj-test
   (is (= '(defproject jarkeeper "0.5.1-SNAPSHOT" :dependencies [[org.clojure/clojure "1.6.0"]])
          (with-open [rdr (PushbackReader. (io/reader (.getBytes project-clj-basic)))]
-           (safe-read rdr))))
+           (read-lein-project (read-file rdr)))))
+
+  (is (= '(defproject jarkeeper "0.5.1-SNAPSHOT" :dependencies [[org.clojure/clojure "1.6.0"]])
+        (with-open [rdr (PushbackReader. (io/reader (.getBytes project-clj-with-extra-defs)))]
+          (read-lein-project (read-file rdr)))))
 
   (is (= '(defproject jarkeeper "0.5.1-SNAPSHOT"
             :dependencies [[org.clojure/clojure "1.6.0"]]
             :foo (fn* [] (throw "MUST NOT BE EVALUATED")))
          (with-open [rdr (PushbackReader. (io/reader (.getBytes project-clj-eval)))]
-           (safe-read rdr)))))
+           (read-lein-project (read-file rdr))))))
 
 (def build-boot "
   (set-env! :dependencies [[adzerk-oss/boot-cljs \"1.7.48-6\"]])")
