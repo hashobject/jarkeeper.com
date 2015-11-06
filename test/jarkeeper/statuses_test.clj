@@ -1,6 +1,6 @@
-(ns jarkeeper.core-test
+(ns jarkeeper.statuses-test
   (:require [clojure.test :refer :all]
-            [jarkeeper.core :refer :all]
+            [jarkeeper.statuses :refer :all]
             [clojure.java.io :as io])
   (:import [java.io PushbackReader]))
 
