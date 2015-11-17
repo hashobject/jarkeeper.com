@@ -36,8 +36,8 @@
     [:thead
      [:tr
       [:th header]
-      [:th {:width "180"} ""]
-      [:th {:width "180"} ""]
+      [:th {:width "180"} "Current"]
+      [:th {:width "180"} "Latest"]
       [:th {:width "90"} ""]]]
    (render-deps items)])
 
