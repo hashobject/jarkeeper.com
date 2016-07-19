@@ -30,11 +30,10 @@
 
 
 (defn get-downloads [repo-owner repo-name]
-  (let [resp-by-short-name (clojars-fetch repo-name)
-        resp-by-full-name (clojars-fetch (str repo-owner "/" repo-name))]
-    (if (= 200 (:status resp-by-short-name))
-      (some-> resp-by-short-name :body :downloads)
-      (some-> resp-by-full-name :body :downloads))))
+  (let [resp-by-full-name (clojars-fetch (str repo-owner "/" repo-name))]
+    (if (= 200 (:status resp-by-full-name))
+      (some-> resp-by-full-name :body :downloads)
+      (some-> (clojars-fetch repo-name) :body :downloads))))
 
 (defn format-downloads [downloads]
   (let [s (str downloads)
