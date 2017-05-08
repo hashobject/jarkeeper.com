@@ -20,7 +20,7 @@
       [:a {:href "http://hashobject.com/"} "Hashobject team"] "."]
     [:p
      [:a {:href "http://github.com/hashobject/jarkeeper.com"} "Jarkeeper"]
-     " is open source project hosted on GitHub."]]])
+     " is an open source project hosted on GitHub."]]])
 
 (defn ga []
   [:script "
