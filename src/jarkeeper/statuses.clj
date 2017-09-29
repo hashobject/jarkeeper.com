@@ -3,7 +3,8 @@
             [clojure.string :as str]
             [clj-http.client :as client]
             [clojure.tools.logging :as log]
-            [ancient-clj.core :as anc])
+            [ancient-clj.core :as anc]
+            [clojure.string :as string])
 
   (:import (java.io PushbackReader)))
 
@@ -14,6 +15,20 @@
           str
           read-string
           number?))
+
+(defn sift
+  "Takes a predicate and a seq, returns two seqs being respectively the elements for which pred
+returned truthy and falsey."
+  ;; From https://github.com/jaunt-lang/jaunt/blob/7c7b55633/src/clj/clojure/core.clj#L4597-L4610
+  [pred coll]
+  (loop [t []
+         f []
+         [e & coll' :as coll] coll]
+    (if (empty? coll)
+      [t f]
+      (if (pred e)
+        (recur (conj t e) f coll')
+        (recur t (conj f e) coll')))))
 
 (defn read-file
   "Reads all forms in a file lazily."
@@ -63,10 +78,14 @@
 (defn check-deps [deps]
   (map #(conj % (anc/artifact-outdated? % {:snapshots? false :qualified? false})) deps))
 
+(defn clojure-dependency? [dep]
+  (if (or (= (first dep) "org.clojure/clojure")
+          (= (first dep) "org.clojure/clojurescript"))))
+
 (defn calculate-stats [deps]
-  (let [up-to-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) dep nil)) deps))
-        out-of-date-deps (remove nil? (map (fn [dep] (if (nil? (last dep)) nil dep)) deps))
-        stats {:total (count deps)
+  (let [filtered-deps (remove clojure-dependency? deps)
+        [up-to-date-deps out-of-date-deps] (sift (fn [dep] (nil? (last dep))) filtered-deps)
+        stats {:total (count filtered-deps)
                :up-to-date (count up-to-date-deps)
                :out-of-date (count out-of-date-deps)}]
     stats))
