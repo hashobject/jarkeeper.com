@@ -18,3 +18,8 @@ lein.bat
 .nrepl-port
 ssl/
 deploy.yaml
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

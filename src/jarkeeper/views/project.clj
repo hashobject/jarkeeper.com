@@ -41,16 +41,15 @@
       [:th {:width "90"} ""]]]
    (render-deps items)])
 
-(defn index [project]
-  (html5 {:lang "en"}
-    [:head
+(defn head [project]
+  [:head
      [:title (str "Jarkeeper: " (:name project))]
      (common-views/common-head)
      (common-views/ga)
-     (include-css "https://cdn.jarkeeper.com/app.css")]
-    [:body
-      (common-views/header)
-      [:article.project-content
+     (include-css "https://cdn.jarkeeper.com/app.css")])
+
+(defn content [project]
+  [:article.project-content
         [:header.row
          [:h1
            [:a {:href (:github-url project)} (:name project)]
@@ -152,5 +151,12 @@
                 "/"
                 (:repo-name project)
                 "/downloads.svg\"></a>"))]]
-                ]
-     (common-views/common-footer)]))
+                ])
+
+(defn index [project]
+  (html5 {:lang "en"}
+    (head project)
+    [:body
+      (common-views/header)
+      (content project)
+      (common-views/common-footer)]))

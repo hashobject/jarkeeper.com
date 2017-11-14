@@ -161,6 +161,6 @@
      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
 
 (defn -main [& args]
-  (let [ip (get (System/getenv) "OPENSHIFT_CLOJURE_HTTP_IP" "0.0.0.0")
-        port (Integer/parseInt (get (System/getenv) "OPENSHIFT_CLOJURE_HTTP_PORT" "8090"))]
+  (let [ip "0.0.0.0"
+        port (Integer/parseInt (get (System/getenv) "PORT" "8090"))]
       (run-jetty app {:host ip :port port})))
