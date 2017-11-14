@@ -1,1 +1,1 @@
-web: lein ring server
+web: lein run -m jarkeeper.core

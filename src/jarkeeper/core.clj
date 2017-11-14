@@ -162,5 +162,5 @@
 
 (defn -main [& args]
   (let [ip "0.0.0.0"
-        port (Integer/parseInt (get (System/getenv) "PORT" "8090"))]
+        port (Integer/parseInt (get (System/getenv) "PORT" "3000"))]
       (run-jetty app {:host ip :port port})))

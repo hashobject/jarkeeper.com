@@ -29,6 +29,7 @@
                 "maven-central" "https://central.maven.org/maven2/"},
   :profiles {
     :dev {
+      :ring {:open-browser? false}
       :dependencies [[ring-mock "0.1.5"]
                      [ring/ring-devel "1.4.0"]]}
     :prod {
