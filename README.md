@@ -31,7 +31,13 @@
   * update some dedicated branch with new versions so they can be tested by continuous integration system for early feedback
   * use https://github.com/jonase/eastwood to analyze code
 
+## Deploy
 
+```
+now
+now alias jarkeeper
+now alias https://jarkeeper.now.sh/ jarkeeper.com
+```
 ## License
 
 Copyright © 2013-2018 Hashobject Ltd (team@hashobject.com).
