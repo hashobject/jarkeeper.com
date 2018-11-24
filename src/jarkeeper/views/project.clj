@@ -46,7 +46,7 @@
      [:title (str "Jarkeeper: " (:name project))]
      (common-views/common-head)
      (common-views/ga)
-     (include-css "https://cdn.jarkeeper.com/app.css")])
+     (include-css "/app.css")])
 
 (defn content [project]
   [:article.project-content
@@ -58,8 +58,8 @@
          [:div.badges
            [:img {:src (str "/" (:repo-owner project)  "/" (:repo-name project) "/downloads.svg") :alt "Downloads"}]
            (if (> (:out-of-date (:stats project)) 0)
-             [:img {:src "https://cdn.jarkeeper.com/images/out-of-date.svg" :alt "Outdated dependencies"}]
-             [:img {:src "https://cdn.jarkeeper.com/images/up-to-date.svg" :alt "Up to date dependencies"}])]]
+             [:img {:src "/images/out-of-date.svg" :alt "Outdated dependencies"}]
+             [:img {:src "/images/up-to-date.svg" :alt "Up to date dependencies"}])]]
         [:section.dependencies.row
           (render-stats (:stats project))
           (render-table "Dependency" (:deps project))

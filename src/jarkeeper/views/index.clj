@@ -12,7 +12,7 @@
      [:title "Jarkeeper: identify out of date dependecies!"]
      (common-views/common-head)
      (common-views/ga)
-     (include-css "https://cdn.jarkeeper.com/app.css")]
+     (include-css "/app.css")]
     [:body
       (common-views/header)
       [:article.index-content
