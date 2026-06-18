@@ -38,6 +38,10 @@ now
 now alias jarkeeper
 now alias https://jarkeeper.now.sh/ jarkeeper.com
 ```
+## Newsletter
+
+Occasional updates from the author — [anton.tinysend.com](https://anton.tinysend.com)
+
 ## License
 
 Copyright © 2013-2018 Hashobject Ltd (team@hashobject.com).
